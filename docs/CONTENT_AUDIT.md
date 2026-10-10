@@ -86,3 +86,14 @@ ADOSE is the lead case study because it has the strongest proof: signed numbers 
 ## 6. Palette Note
 
 Two of her three lead clients are fashion brands, and her content uses warm light tones. That supports the brief's recommendation: **warm light base (`#F7F5F1`), near-black ink (`#141311`), muted champagne gold (`#C6A664`)**. The dark version stays as the fallback.
+
+---
+
+## 7. Portrait Received (10/10/2026)
+
+File: `assets/photos/miracle-portrait-full.webp` (1024×1536, full-length, standing)
+
+- **Palette check:** the warm cream panelled wall and the champagne marble floor sit almost exactly on the proposed `#F7F5F1` base. Her gold hoops echo the gold accent, and the slate-grey dress gives a cool neutral. **This settles the palette: go light.**
+- **Hero use:** a tall portrait column on the right with the type on the left. On mobile, crop from head to waist above the headline.
+- **Resolution:** 1024×1536 is too small for a large desktop hero (it gets soft above ~800px wide). **Ask for the original full-resolution file** (straight from the photographer, not via WhatsApp).
+- **Still needed:** one or two more photos for About and Work so the same image doesn't repeat. Ideally one of her working: filming, editing, or at a mic.
