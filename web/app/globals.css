@@ -285,13 +285,19 @@ select {
     }
   }
   .par-figure {
+    --fx: 0;
     animation: par-figure linear both;
     animation-timeline: scroll(root);
     animation-range: 0 100svh;
   }
+  @media (min-width: 48rem) {
+    .par-figure {
+      --fx: -50%;
+    }
+  }
   @keyframes par-figure {
     to {
-      translate: -50% -4svh;
+      translate: var(--fx) -4svh;
       scale: 1.04;
     }
   }

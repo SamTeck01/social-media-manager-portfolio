@@ -103,6 +103,6 @@ File: `assets/photos/miracle-portrait-full.webp` (1024×1536, full-length, stand
 
 ## 8. Photos and positioning update (11/10/2026)
 
-- Client supplied five studio photos. In use (her pick: two gowns, one suit): navy gown on black (dark-mode hero, background removed), grey gown on cream (light-mode hero), burgundy suit (About).
+- Client supplied five studio photos. In use (her pick): navy V-neck half portrait as the hero in both themes (background removed with rembg isnet), burgundy suit in About.
 - New hero copy from client: "Social Media Manager, Content Creator & Voice-Over Artist" / "Helping ambitious brands build a stronger digital presence through strategic content, creative storytelling and social media management." / "Working with brands across global markets."
 - Positioning: drop "Nigeria and the United States" from headline copy, because the client feels it limits her. Client cities stay on the case studies as facts.

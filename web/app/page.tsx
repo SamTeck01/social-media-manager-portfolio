@@ -81,12 +81,12 @@ export default function Home() {
 
       <main id="top">
         {/* Hero: her name set like a poster, Miracle standing in front of it */}
-        <section className="relative isolate h-[100svh] min-h-[640px] overflow-hidden">
+        <section className="relative isolate overflow-hidden md:h-[100svh] md:min-h-[640px]">
           <div
             className="absolute inset-0 -z-20 bg-[radial-gradient(60%_55%_at_50%_60%,var(--wall-3),transparent_70%)]"
             aria-hidden
           />
-          <h1 className="par-name absolute inset-x-0 top-[13svh] -z-10 text-center md:top-[12svh]">
+          <h1 className="par-name relative -z-10 pt-24 text-center md:absolute md:inset-x-0 md:top-[12svh] md:pt-0">
             <span className="sr-only">
               {site.fullName}, {site.disciplines}
             </span>
@@ -101,33 +101,21 @@ export default function Home() {
               Akhimien
             </span>
           </h1>
-          {/* Navy gown on the dark theme, grey gown on the light theme: each was shot on a matching ground. */}
           <img
-            src="/media/hero-navy-900.webp"
-            srcSet="/media/hero-navy-520.webp 520w, /media/hero-navy-900.webp 900w"
-            sizes="(min-width: 768px) 32vw, 70vw"
-            width={900}
-            height={2237}
+            src="/media/hero-portrait-1000.webp"
+            srcSet="/media/hero-portrait-600.webp 600w, /media/hero-portrait-1000.webp 1000w"
+            sizes="(min-width: 768px) 40vw, 96vw"
+            width={1000}
+            height={1301}
             alt=""
             fetchPriority="high"
-            className="enter-lift par-figure absolute bottom-0 left-1/2 hidden h-[72svh] w-auto max-w-none -translate-x-1/2 dark:block md:h-[86svh]"
+            className="enter-lift par-figure relative mx-auto -mt-[16vw] block h-auto w-[92vw] max-w-none md:absolute md:bottom-0 md:left-1/2 md:mt-0 md:h-[76svh] md:w-auto md:-translate-x-1/2"
             style={{ animationDelay: "250ms" }}
           />
-          <img
-            src="/media/portrait-cut-900.webp"
-            srcSet="/media/portrait-cut-520.webp 520w, /media/portrait-cut-900.webp 900w"
-            sizes="(min-width: 768px) 32vw, 70vw"
-            width={900}
-            height={2560}
-            alt=""
-            loading="lazy"
-            className="enter-lift par-figure absolute bottom-0 left-1/2 h-[72svh] w-auto max-w-none -translate-x-1/2 dark:hidden md:h-[86svh]"
-            style={{ animationDelay: "250ms" }}
-          />
-          <div className="absolute inset-x-0 bottom-0 h-[34svh] bg-gradient-to-t from-wall via-wall/80 to-transparent" aria-hidden />
-          <div className="par-copy absolute inset-x-0 bottom-0 mx-auto flex max-w-[92rem] flex-col gap-6 px-5 pb-8 md:flex-row md:items-end md:justify-between md:px-10 md:pb-12">
-            <div className="enter-rise max-w-[34rem]" style={{ animationDelay: "500ms" }}>
-              <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-gold">{site.disciplines}</p>
+          <div className="absolute inset-x-0 bottom-0 hidden h-[34svh] bg-gradient-to-t from-wall via-wall/80 to-transparent md:block" aria-hidden />
+          <div className="par-copy relative -mt-32 mx-auto flex max-w-[92rem] flex-col gap-6 bg-gradient-to-t from-wall from-60% to-transparent px-5 pb-12 pt-28 md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:bg-none md:pt-0 md:pb-12 md:flex-row md:items-end md:justify-between md:px-10 md:pb-12">
+            <div className="enter-rise max-w-[27rem] lg:max-w-[30rem]" style={{ animationDelay: "500ms" }}>
+              <p className="max-w-[23rem] text-[13px] font-medium uppercase leading-relaxed tracking-[0.14em] text-gold">{site.disciplines}</p>
               <p className="mt-3 max-w-md text-[17px] leading-relaxed md:text-lg">{site.pitch}</p>
               <p className="mt-2 text-sm text-ink-2">{site.reach}</p>
               <div className="mt-6 flex items-center gap-6">
