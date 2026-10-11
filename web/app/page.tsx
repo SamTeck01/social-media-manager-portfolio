@@ -1,12 +1,31 @@
-import Lights from "@/components/Lights";
-import Labels from "@/components/Labels";
+import ThemeToggle from "@/components/ThemeToggle";
+import Reveal from "@/components/Reveal";
+import CountUp from "@/components/CountUp";
 import Icon from "@/components/Icon";
 import Reels from "@/components/Reels";
 import VoicePlayer from "@/components/VoicePlayer";
 import ContactForm from "@/components/ContactForm";
-import { clients, commission, note, rooms, site, testimony, videos, voice, works, type Work } from "@/content/site";
+import { clients, note, rooms, site, testimony, videos, voice, works, type Screen } from "@/content/site";
 
-const numerals = ["I", "II", "III", "IV", "V"];
+const [adose, ffd, taramoda] = works;
+
+function Phone({ s, className = "", eager = false }: { s: Screen; className?: string; eager?: boolean }) {
+  return (
+    <div
+      className={`overflow-hidden rounded-[2rem] border-[7px] border-wall-3 bg-black shadow-[0_30px_60px_-20px_rgba(0,0,0,0.55)] md:rounded-[2.4rem] md:border-[9px] ${className}`}
+    >
+      <img
+        src={s.src}
+        alt={s.alt}
+        width={591}
+        height={1210}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        className="block aspect-[591/1210] w-full object-cover object-top"
+      />
+    </div>
+  );
+}
 
 function ExtLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -14,7 +33,7 @@ function ExtLink({ href, children }: { href: string; children: React.ReactNode }
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1 text-ink-2 underline decoration-hair transition-colors hover:text-ink hover:decoration-gilt-line"
+      className="inline-flex items-center gap-1.5 text-ink-2 underline decoration-hair transition-colors hover:text-gold hover:decoration-gold"
     >
       {children}
       <Icon name="arrowUpRight" className="h-3 w-3" />
@@ -22,312 +41,389 @@ function ExtLink({ href, children }: { href: string; children: React.ReactNode }
   );
 }
 
-/* A placard: the small text panel that hangs beside each work. */
-function WallLabel({ w, n }: { w: Work; n: number }) {
-  return (
-    <div className="label-in max-w-sm text-[15px] leading-relaxed">
-      <p className="text-[13px] text-gilt">No. {n}</p>
-      <h3 className="display mt-2 text-3xl leading-tight md:text-[2.5rem]">{w.client}</h3>
-      <p className="text-ink-2">{w.location}</p>
-      <p className="mt-4 italic text-ink-2">{w.medium}</p>
-      <p className="mt-4">{w.summary}</p>
-      <ul className="mt-5 space-y-1.5 border-t border-hair pt-4">
-        {w.result.map((r) => (
-          <li key={r} className="flex gap-3">
-            <span className="mt-[0.7em] h-px w-3 shrink-0 bg-gilt-line" aria-hidden />
-            <span>{r}</span>
-          </li>
-        ))}
-      </ul>
-      <p className="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-[13px]">
-        {w.links.map((l) => (
-          <ExtLink key={l.href} href={l.href}>
-            {l.label}
-          </ExtLink>
-        ))}
-      </p>
-    </div>
-  );
-}
-
-/* The hung piece. Real media when supplied, otherwise a title card in a gilt mat. */
-function Piece({ w, ratio }: { w: Work; ratio: string }) {
-  if (w.video)
-    return (
-      <video
-        src={w.video.src}
-        poster={w.video.poster}
-        controls
-        playsInline
-        preload="none"
-        className={`${ratio} w-full bg-wall-2 object-cover`}
-      />
-    );
-  if (w.image)
-    return (
-      <img
-        src={w.image.src}
-        alt={w.image.alt}
-        width={w.image.width}
-        height={w.image.height}
-        loading="lazy"
-        decoding="async"
-        className={`${ratio} w-full object-cover`}
-      />
-    );
-  return (
-    <div className={`${ratio} relative w-full bg-wall-2`}>
-      <div className="absolute inset-4 border border-gilt-line/50 md:inset-6" aria-hidden />
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-10 text-center">
-        <p className="display text-4xl leading-none md:text-6xl">{w.client}</p>
-        <p className="mt-4 text-[13px] text-ink-2">{w.location}</p>
-      </div>
-    </div>
-  );
-}
-
-function Section({ id, title, intro, children }: { id: string; title: string; intro?: string; children: React.ReactNode }) {
-  return (
-    <section id={id} className="scroll-mt-20 px-5 py-20 md:px-10 md:py-32">
-      <div className="mx-auto max-w-[88rem]">
-        <h2 className="display max-w-3xl text-[2.6rem] leading-[1.04] md:text-7xl">{title}</h2>
-        {intro && <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-2">{intro}</p>}
-        <div className="mt-14 md:mt-20">{children}</div>
-      </div>
-    </section>
-  );
+function Tag({ children }: { children: React.ReactNode }) {
+  return <span className="rounded-full border border-hair px-3 py-1 text-xs text-ink-2">{children}</span>;
 }
 
 export default function Home() {
+  const wall = [...adose.screens, ...ffd.screens];
+
   return (
     <>
-      <Labels />
-      <header className="sticky top-0 z-40 border-b border-hair bg-wall/90 backdrop-blur-md">
-        <nav className="mx-auto flex h-14 max-w-[88rem] items-center justify-between gap-4 px-5 md:h-16 md:px-10">
-          <a href="#top" className="display text-lg md:text-xl">
+      <Reveal />
+
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-hair bg-wall/70 backdrop-blur-xl">
+        <nav className="mx-auto flex h-16 max-w-[92rem] items-center justify-between px-5 md:h-20 md:px-10">
+          <a href="#top" className="display text-xl">
             {site.name}
           </a>
-          <div className="flex items-center gap-5 text-[13px] md:gap-8">
-            <a href="#works" className="text-ink-2 transition-colors hover:text-ink">
-              Works
+          <div className="flex items-center gap-2 text-sm md:gap-8">
+            <a href="#work" className="hidden text-ink-2 transition-colors hover:text-ink md:inline">
+              Work
             </a>
-            <a href="#note" className="hidden text-ink-2 transition-colors hover:text-ink sm:inline">
+            <a href="#services" className="hidden text-ink-2 transition-colors hover:text-ink md:inline">
+              Services
+            </a>
+            <a href="#about" className="hidden text-ink-2 transition-colors hover:text-ink md:inline">
               About
             </a>
-            <a href="#inquire" className="text-ink-2 transition-colors hover:text-ink">
-              Inquire
+            <a
+              href="#contact"
+              className="mr-1 rounded-full bg-gold px-4 py-2.5 text-[13px] font-medium text-wall transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-[0.97] md:mr-0 md:px-5"
+            >
+              Work with me
             </a>
-            <Lights />
+            <ThemeToggle />
           </div>
         </nav>
       </header>
 
       <main id="top">
-        {/* Title wall */}
-        <section className="px-5 pb-20 pt-10 md:px-10 md:pb-32 md:pt-20">
-          <div className="mx-auto grid max-w-[88rem] gap-14 md:grid-cols-12 md:gap-10">
-            <div className="flex flex-col md:col-span-7 md:pt-6">
-              <h1 className="display text-[3.1rem] leading-[0.98] sm:text-7xl md:text-[5.75rem]">
-                Strategy, Story <span className="italic text-gilt">&amp;</span> Voice
-              </h1>
-              <p className="mt-8 max-w-lg text-lg leading-relaxed md:text-xl">
-                Works by {site.fullName}, for brands in Nigeria and the United States. Social media, content and
-                voice-over, from one person.
+        {/* Hero: her name set like a poster, Miracle standing in front of it */}
+        <section className="relative isolate h-[100svh] min-h-[640px] overflow-hidden">
+          <div
+            className="absolute inset-0 -z-20 bg-[radial-gradient(60%_55%_at_50%_60%,var(--wall-3),transparent_70%)]"
+            aria-hidden
+          />
+          <h1 className="absolute inset-x-0 top-[13svh] -z-10 text-center md:top-[10svh]">
+            <span className="sr-only">
+              {site.fullName}, {site.disciplines}
+            </span>
+            <span aria-hidden className="display enter-rise block text-[24vw] leading-[0.82] md:text-[17vw]">
+              Miracle
+            </span>
+            <span
+              aria-hidden
+              className="display enter-rise block text-[24vw] italic leading-[0.82] text-gold md:text-[17vw]"
+              style={{ animationDelay: "120ms" }}
+            >
+              Akhimien
+            </span>
+          </h1>
+          <img
+            src="/media/portrait-cut-900.webp"
+            srcSet="/media/portrait-cut-520.webp 520w, /media/portrait-cut-900.webp 900w"
+            sizes="(min-width: 768px) 32vw, 70vw"
+            width={900}
+            height={2560}
+            alt=""
+            fetchPriority="high"
+            className="enter-lift absolute bottom-0 left-1/2 h-[78svh] w-auto max-w-none -translate-x-1/2 md:h-[86svh]"
+            style={{ animationDelay: "250ms" }}
+          />
+          <div className="absolute inset-x-0 bottom-0 h-[34svh] bg-gradient-to-t from-wall via-wall/80 to-transparent" aria-hidden />
+          <div className="absolute inset-x-0 bottom-0 mx-auto flex max-w-[92rem] flex-col gap-6 px-5 pb-8 md:flex-row md:items-end md:justify-between md:px-10 md:pb-12">
+            <div className="enter-rise max-w-md" style={{ animationDelay: "500ms" }}>
+              <p className="text-[17px] leading-relaxed md:text-lg">
+                Social media manager, content creator and voice-over artist for brands in{" "}
+                <span className="text-gold">Nigeria</span> and the <span className="text-gold">United States</span>.
               </p>
-              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <div className="mt-6 flex items-center gap-6">
                 <a
-                  href="#inquire"
-                  className="bg-ink px-7 py-4 text-sm font-medium tracking-wide text-wall transition-opacity hover:opacity-85"
+                  href="#contact"
+                  className="rounded-full bg-gold px-7 py-3.5 text-sm font-medium text-wall transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-[0.97]"
                 >
-                  Commission work
+                  Start a project
                 </a>
-                <a href="#works" className="inline-flex items-center gap-2 text-sm text-ink-2 transition-colors hover:text-ink">
-                  Walk through the works <Icon name="arrowDown" />
+                <a href="#work" className="inline-flex items-center gap-2 text-sm text-ink-2 transition-colors hover:text-ink">
+                  See the results <Icon name="arrowDown" />
                 </a>
-              </div>
-              <div className="mt-auto hidden pt-16 md:block text-[13px] leading-relaxed text-ink-2 md:pt-24">
-                <p className="text-ink">Works on view for</p>
-                <p className="mt-1 max-w-xl">
-                  {clients.map((c, i) => (
-                    <span key={c.name}>
-                      {c.name} <span className="text-ink-2/70">({c.place})</span>
-                      {i < clients.length - 1 ? ", " : ""}
-                    </span>
-                  ))}
-                </p>
               </div>
             </div>
-            <figure className="md:col-span-5">
-              <div className="relative border border-hair p-3 md:p-5">
-                <img
-                  src="/media/portrait-1024.webp"
-                  srcSet="/media/portrait-640.webp 640w, /media/portrait-1024.webp 1024w"
-                  sizes="(min-width: 768px) 38vw, 92vw"
-                  width={1024}
-                  height={1536}
-                  alt={`Portrait of ${site.fullName}`}
-                  fetchPriority="high"
-                  className="aspect-[4/5] w-full object-cover object-[50%_10%]"
-                />
-              </div>
-              <figcaption className="mt-5 text-[13px] leading-relaxed">
-                <span className="block text-ink">{site.fullName}</span>
-                <span className="block text-ink-2">{site.disciplines}</span>
-                <span className="block italic text-ink-2">Portrait, photograph</span>
-              </figcaption>
-            </figure>
-              <div className="text-[13px] leading-relaxed text-ink-2 md:hidden">
-              <p className="text-ink">Works on view for</p>
-              <p className="mt-1 max-w-xl">
-                {clients.map((c, i) => (
-                  <span key={c.name}>
-                    {c.name} <span className="text-ink-2/70">({c.place})</span>
-                    {i < clients.length - 1 ? ", " : ""}
-                  </span>
-                ))}
-              </p>
-            </div>
+            <ul
+              className="enter-rise hidden gap-8 text-sm text-ink-2 md:flex"
+              style={{ animationDelay: "650ms" }}
+              aria-label="Disciplines"
+            >
+              {rooms.map((r) => (
+                <li key={r.name} className="display text-2xl text-ink">
+                  {r.name}
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
-        {/* The works */}
-        <section id="works" className="scroll-mt-14 border-t border-hair px-5 py-20 md:px-10 md:py-32">
-          <div className="mx-auto max-w-[88rem]">
-            <h2 className="display text-[2.6rem] leading-[1.04] md:text-7xl">On view</h2>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-2">
-              Three works, each hung with its result. Every number here comes from the brand itself.
+        {/* Clients */}
+        <section className="border-y border-hair px-5 py-8 md:px-10">
+          <ul className="mx-auto flex max-w-[92rem] flex-wrap items-center justify-center gap-x-10 gap-y-3 md:justify-between">
+            {clients.map((c) => (
+              <li key={c.name} className="display text-xl text-ink-2 md:text-2xl">
+                {c.name}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* Results */}
+        <section id="work" className="scroll-mt-16 px-5 py-24 md:px-10 md:py-36">
+          <div className="mx-auto max-w-[92rem]">
+            <h2 className="display reveal max-w-4xl text-5xl leading-[0.98] md:text-8xl">
+              Results you can <span className="italic text-gold">check</span>.
+            </h2>
+            <p className="reveal mt-6 max-w-lg text-lg leading-relaxed text-ink-2" style={{ ["--d" as string]: "80ms" }}>
+              Real brands, real channels, and numbers that come from the brands themselves.
             </p>
 
-            <div className="mt-16 space-y-24 md:mt-24 md:space-y-40">
-              {/* No. 1: the largest wall */}
-              <article className="grid gap-8 md:grid-cols-12 md:items-end md:gap-10">
-                <div className="md:col-span-7">
-                  <Piece w={works[0]} ratio="aspect-[4/5] md:aspect-[5/4]" />
+            {/* ADOSE */}
+            <article className="mt-20 grid items-center gap-12 md:mt-28 md:grid-cols-12 md:gap-10">
+              <div className="reveal mx-auto w-[64%] max-w-[300px] md:col-span-4 md:col-start-2 md:w-full">
+                <a href={adose.screens[0].href} target="_blank" rel="noopener noreferrer" aria-label="Open ADOSE Fashion on Instagram">
+                  <Phone s={adose.screens[0]} className="rotate-[-3deg] transition-transform duration-500 ease-[var(--ease-out-expo)] hover:rotate-0" />
+                </a>
+              </div>
+              <div className="md:col-span-6 md:col-start-7">
+                <div className="reveal flex flex-wrap gap-2">
+                  <Tag>Fashion &amp; retail</Tag>
+                  <Tag>{adose.location}</Tag>
                 </div>
-                <div className="md:col-span-4 md:col-start-9">
-                  <WallLabel w={works[0]} n={1} />
-                </div>
-              </article>
+                <h3 className="display reveal mt-5 text-4xl md:text-6xl">{adose.client}</h3>
+                <p className="reveal mt-2 text-ink-2">{adose.medium}</p>
+                <dl className="reveal mt-10 grid grid-cols-2 gap-6 border-t border-hair pt-8">
+                  <div>
+                    <dd className="display text-5xl text-gold md:text-7xl">
+                      <CountUp to={9837} />
+                    </dd>
+                    <dt className="mt-2 text-sm text-ink-2">Instagram followers, grown organically from zero</dt>
+                  </div>
+                  <div>
+                    <dd className="display text-5xl text-gold md:text-7xl">
+                      <CountUp to={1000} suffix="+" />
+                    </dd>
+                    <dt className="mt-2 text-sm text-ink-2">Pairs sold out in the Summer Shoes campaign</dt>
+                  </div>
+                </dl>
+                <p className="reveal mt-8 max-w-lg leading-relaxed">{adose.summary}</p>
+                <p className="reveal mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+                  {adose.links.map((l) => (
+                    <ExtLink key={l.href} href={l.href}>
+                      {l.label}
+                    </ExtLink>
+                  ))}
+                </p>
+              </div>
+            </article>
 
-              {/* No. 2: hung right, label on the left */}
-              <article className="grid gap-8 md:grid-cols-12 md:items-end md:gap-10">
-                <div className="md:order-2 md:col-span-5 md:col-start-7">
-                  <Piece w={works[1]} ratio="aspect-[4/5]" />
+            {/* The Fly Foot Doctor */}
+            <article className="mt-32 grid items-center gap-12 md:mt-44 md:grid-cols-12 md:gap-10">
+              <div className="md:col-span-5 md:col-start-2">
+                <div className="reveal flex flex-wrap gap-2">
+                  <Tag>Health &amp; education</Tag>
+                  <Tag>{ffd.location}</Tag>
                 </div>
-                <div className="md:order-1 md:col-span-4 md:col-start-2">
-                  <WallLabel w={works[1]} n={2} />
+                <h3 className="display reveal mt-5 text-4xl md:text-6xl">{ffd.client}</h3>
+                <p className="reveal mt-2 text-ink-2">{ffd.medium}</p>
+                <div className="reveal mt-10 border-t border-hair pt-8">
+                  <p className="display text-5xl text-gold md:text-7xl">
+                    <CountUp to={800} suffix="+" />
+                  </p>
+                  <p className="mt-2 text-sm text-ink-2">Purchases of her recorded heel-care course</p>
                 </div>
-              </article>
+                <p className="reveal mt-8 max-w-lg leading-relaxed">{ffd.summary}</p>
+                <p className="reveal mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+                  {ffd.links.map((l) => (
+                    <ExtLink key={l.href} href={l.href}>
+                      {l.label}
+                    </ExtLink>
+                  ))}
+                </p>
+              </div>
+              <div className="relative mx-auto h-[440px] w-full max-w-[420px] md:order-first md:col-span-5 md:col-start-7 md:row-start-1 md:h-[560px] md:max-w-none">
+                {ffd.screens.map((s, i) => (
+                  <a
+                    key={s.src}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Open ${ffd.client} on ${s.platform}`}
+                    className="reveal absolute top-1/2 w-[46%] max-w-[250px] transition-transform duration-500 ease-[var(--ease-out-expo)] hover:z-10"
+                    style={{
+                      left: `${[27, 2, 52][i]}%`,
+                      zIndex: [3, 2, 1][i],
+                      transform: `translateY(-50%) rotate(${[0, -7, 7][i]}deg)`,
+                      ["--d" as string]: `${i * 90}ms`,
+                    }}
+                  >
+                    <Phone s={s} />
+                  </a>
+                ))}
+              </div>
+            </article>
 
-              {/* No. 3: a small piece, centred, label beneath */}
-              <article className="mx-auto max-w-md">
-                <Piece w={works[2]} ratio="aspect-square" />
-                <div className="mt-8">
-                  <WallLabel w={works[2]} n={3} />
-                </div>
-              </article>
-            </div>
+            {/* Taramoda */}
+            <article className="reveal mx-auto mt-32 max-w-3xl border-t border-hair pt-12 text-center md:mt-44">
+              <div className="flex flex-wrap justify-center gap-2">
+                <Tag>Fashion &amp; retail</Tag>
+                <Tag>{taramoda.location}</Tag>
+              </div>
+              <h3 className="display mt-5 text-4xl md:text-6xl">{taramoda.client}</h3>
+              <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed">{taramoda.summary}</p>
+              <p className="mt-6 text-sm">
+                {taramoda.links.map((l) => (
+                  <ExtLink key={l.href} href={l.href}>
+                    {l.label}
+                  </ExtLink>
+                ))}
+              </p>
+            </article>
           </div>
         </section>
 
         {/* Testimony */}
-        <section className="bg-wall-2 px-5 py-20 md:px-10 md:py-32">
-          <figure className="label-in mx-auto max-w-4xl">
-            <blockquote className="display text-[1.9rem] leading-[1.18] md:text-5xl">
-              <span className="text-gilt">“</span>
+        <section className="bg-wall-2 px-5 py-24 md:px-10 md:py-36">
+          <figure className="reveal mx-auto max-w-5xl">
+            <blockquote className="display text-[1.85rem] leading-[1.2] md:text-[3.25rem]">
+              <span className="text-gold">“</span>
               {testimony.text}
-              <span className="text-gilt">”</span>
+              <span className="text-gold">”</span>
             </blockquote>
-            <figcaption className="mt-8 text-[15px]">
-              {testimony.author}
-              <span className="text-ink-2">, {testimony.org}</span>
+            <figcaption className="mt-10 flex items-center gap-4 text-sm">
+              <span className="h-px w-10 bg-gold" aria-hidden />
+              <span>
+                {testimony.author}
+                <span className="text-ink-2">, {testimony.org}</span>
+              </span>
             </figcaption>
           </figure>
         </section>
 
-        {videos.length > 0 && (
-          <Section id="reels" title="Made to be watched." intro="Short-form work from the collection.">
-            <Reels videos={videos} />
-          </Section>
-        )}
+        {/* Content wall */}
+        <section className="py-24 md:py-36">
+          <div className="mx-auto mb-12 flex max-w-[92rem] flex-col gap-4 px-5 md:mb-16 md:flex-row md:items-end md:justify-between md:px-10">
+            <h2 className="display reveal text-5xl leading-[0.98] md:text-8xl">
+              See it <span className="italic text-gold">live</span>.
+            </h2>
+            <p className="reveal max-w-sm text-ink-2">
+              {videos.length ? "Short-form work from her clients' channels." : "The channels she runs, as they are today. Tap one to open it."}
+            </p>
+          </div>
+          {videos.length ? (
+            <div className="mx-auto max-w-[92rem] px-5 md:px-10">
+              <Reels videos={videos} />
+            </div>
+          ) : (
+            <div className="drift-wrap overflow-hidden">
+              <ul className="drift flex w-max gap-5 pl-5 md:gap-8">
+                {[...wall, ...wall, ...wall, ...wall].map((s, i) => (
+                  <li key={i} className="w-[58vw] max-w-[260px] shrink-0 sm:w-[260px]" aria-hidden={i >= wall.length}>
+                    <a href={s.href} target="_blank" rel="noopener noreferrer" tabIndex={i >= wall.length ? -1 : 0} className="group block">
+                      <div className="aspect-[9/16] overflow-hidden rounded-2xl bg-wall-2">
+                        <img
+                          src={s.src}
+                          alt={i < wall.length ? s.alt : ""}
+                          width={591}
+                          height={1210}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-cover object-top transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
+                        />
+                      </div>
+                      <p className="mt-3 flex items-center justify-between text-sm">
+                        <span>{s.platform}</span>
+                        <span className="text-ink-2 transition-colors group-hover:text-gold">{s.handle}</span>
+                      </p>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
 
         {voice.length > 0 && (
-          <Section id="voice" title="Hear her." intro="Voice-over samples. Press play.">
-            <div className="max-w-3xl">
-              <VoicePlayer clips={voice} />
+          <section id="voice" className="px-5 pb-24 md:px-10 md:pb-36">
+            <div className="mx-auto max-w-[92rem]">
+              <h2 className="display reveal text-5xl md:text-8xl">
+                Hear <span className="italic text-gold">her</span>.
+              </h2>
+              <div className="reveal mt-12 max-w-3xl">
+                <VoicePlayer clips={voice} />
+              </div>
             </div>
-          </Section>
+          </section>
         )}
 
-        {/* Rooms */}
-        <Section id="rooms" title="Three rooms, one artist." intro="What she brings to a brand, all from one point of contact.">
-          <ul className="grid border-t border-hair md:grid-cols-3">
-            {rooms.map((r, i) => (
-              <li key={r.name} className="label-in border-b border-hair py-8 md:border-b-0 md:py-10 md:pr-10 md:[&:not(:first-child)]:border-l md:[&:not(:first-child)]:pl-10">
-                <p className="text-[13px] text-gilt">Room {numerals[i]}</p>
-                <h3 className="display mt-3 text-4xl md:text-5xl">{r.name}</h3>
-                <p className="mt-4 max-w-sm leading-relaxed text-ink-2">{r.body}</p>
-              </li>
-            ))}
-          </ul>
+        {/* Services */}
+        <section id="services" className="scroll-mt-16 border-t border-hair px-5 py-24 md:px-10 md:py-36">
+          <div className="mx-auto max-w-[92rem]">
+            <h2 className="display reveal max-w-4xl text-5xl leading-[0.98] md:text-8xl">
+              Three skills. <span className="italic text-gold">One</span> hire.
+            </h2>
+            <ul className="mt-16 border-t border-hair md:mt-24">
+              {rooms.map((r, i) => (
+                <li
+                  key={r.name}
+                  className="reveal group grid gap-4 border-b border-hair py-10 md:grid-cols-12 md:items-baseline md:py-14"
+                  style={{ ["--d" as string]: `${i * 80}ms` }}
+                >
+                  <h3 className="display text-5xl transition-colors duration-300 group-hover:text-gold md:col-span-6 md:text-8xl">
+                    {r.name}
+                  </h3>
+                  <p className="max-w-md text-lg leading-relaxed text-ink-2 md:col-span-5 md:col-start-8">{r.body}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
 
-          <h3 className="display mt-24 text-3xl md:mt-32 md:text-4xl">How a commission works</h3>
-          <ol className="mt-8 border-t border-hair">
-            {commission.map((s, i) => (
-              <li key={s.title} className="grid grid-cols-[2.5rem_1fr] gap-x-4 gap-y-1 border-b border-hair py-6 md:grid-cols-[5rem_14rem_1fr] md:items-baseline">
-                <span className="text-[13px] text-gilt">{i + 1}</span>
-                <span className="display text-2xl">{s.title}</span>
-                <span className="col-start-2 leading-relaxed text-ink-2 md:col-start-3">{s.body}</span>
-              </li>
-            ))}
-          </ol>
-        </Section>
-
-        {/* Artist's note */}
-        <section id="note" className="scroll-mt-14 border-t border-hair px-5 py-20 md:px-10 md:py-32">
-          <div className="mx-auto grid max-w-[88rem] gap-10 md:grid-cols-12">
-            <h2 className="display text-[2.6rem] leading-[1.04] md:col-span-5 md:text-6xl">{note.heading}</h2>
-            <div className="max-w-[62ch] text-lg leading-relaxed md:col-span-6 md:col-start-7">
-              {note.body.map((p) => (
-                <p key={p} className="mb-6">
+        {/* About */}
+        <section id="about" className="scroll-mt-16 px-5 pb-24 md:px-10 md:pb-36">
+          <div className="mx-auto grid max-w-[92rem] items-center gap-12 md:grid-cols-12 md:gap-10">
+            <div className="reveal md:col-span-5">
+              <img
+                src="/media/portrait-1024.webp"
+                srcSet="/media/portrait-640.webp 640w, /media/portrait-1024.webp 1024w"
+                sizes="(min-width: 768px) 40vw, 92vw"
+                width={1024}
+                height={1536}
+                alt={`${site.fullName} in a grey dress, smiling`}
+                loading="lazy"
+                decoding="async"
+                className="aspect-[4/5] w-full rounded-2xl object-cover object-[50%_15%]"
+              />
+            </div>
+            <div className="md:col-span-6 md:col-start-7">
+              <h2 className="display reveal text-5xl leading-[0.98] md:text-7xl">{note.heading}</h2>
+              {note.body.map((p, i) => (
+                <p key={p} className="reveal mt-6 max-w-[60ch] text-lg leading-relaxed text-ink-2" style={{ ["--d" as string]: `${(i + 1) * 80}ms` }}>
                   {p}
                 </p>
               ))}
-              <p className="display text-2xl italic text-gilt">{site.fullName}</p>
+              <p className="display reveal mt-8 text-3xl italic text-gold">{site.fullName}</p>
             </div>
           </div>
         </section>
 
-        {/* Inquire */}
-        <section id="inquire" className="after-hours scroll-mt-14 border-t border-hair px-5 py-20 md:px-10 md:py-32">
-          <div className="mx-auto grid max-w-[88rem] gap-14 md:grid-cols-12">
-            <div className="md:col-span-5">
-              <h2 className="display text-5xl leading-[1.02] md:text-7xl">
-                Have something in <span className="italic text-gilt">mind</span>?
+        {/* Contact */}
+        <section id="contact" className="night scroll-mt-16 border-t border-hair px-5 py-24 md:px-10 md:py-36">
+          <div className="mx-auto grid max-w-[92rem] gap-14 md:grid-cols-12">
+            <div className="md:col-span-6">
+              <h2 className="display reveal text-6xl leading-[0.95] md:text-8xl">
+                Let&rsquo;s make your brand <span className="italic text-gold">unforgettable</span>.
               </h2>
-              <p className="mt-6 max-w-sm leading-relaxed text-ink-2">
+              <p className="reveal mt-8 max-w-sm leading-relaxed text-ink-2">
                 Tell her about your brand and what you want to achieve. Replies within two working days.
               </p>
               {site.email && (
-                <a href={`mailto:${site.email}`} className="mt-8 block text-lg underline decoration-gilt-line">
+                <a href={`mailto:${site.email}`} className="reveal mt-8 block text-xl underline decoration-gold">
                   {site.email}
                 </a>
               )}
               {site.booking && (
-                <a href={site.booking} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1 text-ink-2 hover:text-ink">
+                <a href={site.booking} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1.5 text-ink-2 hover:text-ink">
                   Book a call <Icon name="arrowUpRight" className="h-3 w-3" />
                 </a>
               )}
             </div>
-            <div className="md:col-span-6 md:col-start-7">
+            <div className="reveal md:col-span-5 md:col-start-8 md:self-end">
               <ContactForm email={site.email} />
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="px-5 py-8 text-[13px] text-ink-2 md:px-10">
-        <div className="mx-auto flex max-w-[88rem] flex-col gap-3 md:flex-row md:justify-between">
+      <footer className="night border-t border-hair px-5 py-8 text-sm text-ink-2 md:px-10">
+        <div className="mx-auto flex max-w-[92rem] flex-col gap-3 md:flex-row md:justify-between">
           <p>
             © {new Date().getFullYear()} {site.fullName}
           </p>

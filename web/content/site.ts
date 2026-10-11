@@ -28,10 +28,11 @@ export type Work = {
   summary: string;
   result: string[]; // each line must be defensible
   links: { label: string; href: string }[];
-  // Optional hung media. Until set, the work shows as a typographic plate.
-  image?: { src: string; alt: string; width: number; height: number };
-  video?: { src: string; poster: string };
+  // Real screenshots of the brand's channels (supplied by the client).
+  screens: Screen[];
 };
+
+export type Screen = { src: string; alt: string; platform: string; handle: string; href: string };
 
 export const site = {
   name: "Miracle Akhimien",
@@ -65,6 +66,15 @@ export const works: Work[] = [
       { label: "Instagram", href: "https://www.instagram.com/adose.fashion/" },
       { label: "adosefashion.com.ng", href: "https://www.adosefashion.com.ng" },
     ],
+    screens: [
+      {
+        src: "/media/adose-instagram.webp",
+        alt: "ADOSE Fashion Instagram profile showing 9,837 followers",
+        platform: "Instagram",
+        handle: "@adose.fashion",
+        href: "https://www.instagram.com/adose.fashion/",
+      },
+    ],
   },
   {
     id: "fly-foot-doctor",
@@ -78,6 +88,29 @@ export const works: Work[] = [
       { label: "YouTube", href: "https://www.youtube.com/@theflyfootdoctor" },
       { label: "Instagram", href: "https://www.instagram.com/the_fly_foot_doctor/" },
     ],
+    screens: [
+      {
+        src: "/media/ffd-youtube.webp",
+        alt: "The Fly Foot Doctor YouTube channel",
+        platform: "YouTube",
+        handle: "@theflyfootdoctor",
+        href: "https://www.youtube.com/@theflyfootdoctor",
+      },
+      {
+        src: "/media/ffd-instagram.webp",
+        alt: "The Fly Foot Doctor Instagram profile",
+        platform: "Instagram",
+        handle: "@the_fly_foot_doctor",
+        href: "https://www.instagram.com/the_fly_foot_doctor/",
+      },
+      {
+        src: "/media/ffd-tiktok.webp",
+        alt: "The Doc in Bloom TikTok profile with short educational videos",
+        platform: "TikTok",
+        handle: "@flyfootdoctor",
+        href: "https://www.tiktok.com/@flyfootdoctor",
+      },
+    ],
   },
   {
     id: "taramoda",
@@ -88,6 +121,7 @@ export const works: Work[] = [
       "Creates content every day for a women's fashion boutique, keeping new pieces visible and carrying its promotions, including a campaign that sold out.",
     result: ["A promotional campaign that sold out"],
     links: [{ label: "Instagram", href: "https://www.instagram.com/taramodaluxury/" }],
+    screens: [],
   },
 ];
 

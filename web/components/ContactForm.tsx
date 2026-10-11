@@ -44,7 +44,7 @@ export default function ContactForm({ email }: { email: string }) {
       <button
         type="submit"
         disabled={!email}
-        className="w-full bg-ink px-8 py-4 text-sm font-medium tracking-wide text-wall transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 md:w-auto"
+        className="w-full rounded-full bg-gold px-8 py-4 text-sm font-medium text-wall active:scale-[0.97] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 md:w-auto"
       >
         {sent ? "Opening your email…" : "Send inquiry"}
       </button>

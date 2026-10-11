@@ -2,39 +2,41 @@
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* The white cube by day. */
-:root {
-  --wall: #f6f4ef;
-  --wall-2: #eeebe4;
-  --ink: #121110;
-  --ink-2: #57534d;
-  --hair: rgba(18, 17, 16, 0.14);
-  --gilt: #8f6d33;
-  --gilt-line: #b8955a;
-  color-scheme: light;
-}
-
-/* The same room after hours. */
+/* Default: dark luxury. */
+:root,
 [data-theme="dark"] {
-  --wall: #0e0d0c;
-  --wall-2: #171513;
-  --ink: #eee9e0;
-  --ink-2: #a39d93;
-  --hair: rgba(238, 233, 224, 0.14);
-  --gilt: #c9a96a;
-  --gilt-line: #c9a96a;
+  --wall: #0b0a09;
+  --wall-2: #151311;
+  --wall-3: #1d1a17;
+  --ink: #f1ece3;
+  --ink-2: #a8a197;
+  --hair: rgba(241, 236, 227, 0.13);
+  --gold: #d0b07a;
+  --gold-deep: #b8955a;
   color-scheme: dark;
 }
 
-/* The inquiry room is always lit low, in either mode. */
-.after-hours {
-  --wall: #0e0d0c;
-  --wall-2: #171513;
-  --ink: #eee9e0;
-  --ink-2: #a39d93;
-  --hair: rgba(238, 233, 224, 0.16);
-  --gilt: #c9a96a;
-  --gilt-line: #c9a96a;
+[data-theme="light"] {
+  --wall: #f7f4ee;
+  --wall-2: #efeae1;
+  --wall-3: #e6e0d5;
+  --ink: #12100e;
+  --ink-2: #5c5750;
+  --hair: rgba(18, 16, 14, 0.14);
+  --gold: #8c6a2f;
+  --gold-deep: #a9864b;
+  color-scheme: light;
+}
+
+/* Always-dark band (contact), in either mode. */
+.night {
+  --wall: #0b0a09;
+  --wall-2: #151311;
+  --ink: #f1ece3;
+  --ink-2: #a8a197;
+  --hair: rgba(241, 236, 227, 0.15);
+  --gold: #d0b07a;
+  --gold-deep: #b8955a;
   color-scheme: dark;
   background: var(--wall);
   color: var(--ink);
@@ -43,11 +45,14 @@
 @theme inline {
   --color-wall: var(--wall);
   --color-wall-2: var(--wall-2);
+  --color-wall-3: var(--wall-3);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-hair: var(--hair);
-  --color-gilt: var(--gilt);
-  --color-gilt-line: var(--gilt-line);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-gilt: var(--gold);
+  --color-gilt-line: var(--gold-deep);
   --font-display: "Bodoni Moda Variable", "Bodoni 72", Didot, serif;
   --font-sans: "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -63,7 +68,6 @@ body {
   background: var(--wall);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-feature-settings: "tnum" 1;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -71,17 +75,16 @@ body {
   font-family: var(--font-display);
   font-optical-sizing: auto;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
+  letter-spacing: -0.025em;
 }
 
 ::selection {
-  background: var(--gilt-line);
+  background: var(--gold);
   color: var(--wall);
 }
 
 :focus-visible {
-  outline: 1px solid var(--gilt-line);
+  outline: 1px solid var(--gold);
   outline-offset: 4px;
 }
 
@@ -93,29 +96,62 @@ a {
 input,
 textarea,
 select {
-  caret-color: var(--gilt-line);
+  caret-color: var(--gold);
 }
 
-/* Wall labels settle into place as the visitor walks past. One authored moment. */
-.js .label-in {
-  opacity: 0;
-  transform: translate3d(0, 10px, 0);
-  filter: blur(4px);
-  transition:
-    opacity 0.9s var(--ease-out-expo),
-    transform 0.9s var(--ease-out-expo),
-    filter 0.9s var(--ease-out-expo);
+/* Hero entrance: plays once on load, pure CSS. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.4em, 0);
+    filter: blur(8px);
+  }
 }
-.js .label-in.is-in {
+@keyframes lift {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0) scale(0.985);
+  }
+}
+.enter-rise {
+  animation: rise 1.2s var(--ease-out-expo) both;
+}
+.enter-lift {
+  animation: lift 1.4s var(--ease-out-expo) both;
+}
+
+/* Scroll reveals. Content stays visible without JS. */
+.js .reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 1s var(--ease-out-expo),
+    transform 1s var(--ease-out-expo);
+  transition-delay: var(--d, 0ms);
+}
+.js .reveal.is-in {
   opacity: 1;
   transform: none;
-  filter: none;
 }
 
-/* Lights switch: the whole room cross-fades. */
+/* Content wall: a slow drift that pauses under the pointer. */
+@keyframes drift {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.drift {
+  animation: drift 60s linear infinite;
+}
+.drift-wrap:hover .drift,
+.drift-wrap:focus-within .drift {
+  animation-play-state: paused;
+}
+
+/* Theme switch cross-fade. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.7s;
+  animation-duration: 0.6s;
   animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
@@ -123,10 +159,14 @@ select {
   html {
     scroll-behavior: auto;
   }
-  .js .label-in {
+  .enter-rise,
+  .enter-lift,
+  .drift {
+    animation: none;
+  }
+  .js .reveal {
     opacity: 1;
     transform: none;
-    filter: none;
     transition: none;
   }
   ::view-transition-old(root),
