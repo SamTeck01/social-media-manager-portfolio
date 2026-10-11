@@ -22,7 +22,7 @@ export default function ContactForm({ email }: { email: string }) {
   };
 
   const field =
-    "w-full border-b border-line bg-transparent py-3 text-base text-ink placeholder:text-muted/70 focus:border-gold focus:outline-none";
+    "w-full border-b border-hair bg-transparent py-3 text-base text-ink placeholder:text-ink-2/70 focus:border-gilt-line focus:outline-none";
 
   return (
     <form onSubmit={onSubmit} className="space-y-6">
@@ -40,9 +40,11 @@ export default function ContactForm({ email }: { email: string }) {
         <option>$5,000+</option>
       </select>
       <textarea name="message" required rows={4} placeholder="Tell me about the project" className={`${field} resize-none`} />
+      {!email && <p className="text-sm text-ink-2">The inquiry form opens once a contact email is added.</p>}
       <button
         type="submit"
-        className="w-full bg-gold px-8 py-4 text-sm font-medium tracking-wide text-bg transition-opacity hover:opacity-90 md:w-auto"
+        disabled={!email}
+        className="w-full bg-ink px-8 py-4 text-sm font-medium tracking-wide text-wall transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 md:w-auto"
       >
         {sent ? "Opening your email…" : "Send inquiry"}
       </button>

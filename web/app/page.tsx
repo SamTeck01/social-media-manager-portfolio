@@ -1,298 +1,345 @@
-import Nav from "@/components/Nav";
+import Lights from "@/components/Lights";
+import Labels from "@/components/Labels";
+import Icon from "@/components/Icon";
 import Reels from "@/components/Reels";
 import VoicePlayer from "@/components/VoicePlayer";
 import ContactForm from "@/components/ContactForm";
-import RevealObserver from "@/components/RevealObserver";
-import {
-  about,
-  capabilities,
-  caseStudies,
-  clients,
-  process,
-  proof,
-  site,
-  videos,
-  voice,
-  type CaseStudy,
-} from "@/content/site";
+import { clients, commission, note, rooms, site, testimony, videos, voice, works, type Work } from "@/content/site";
 
-function SectionHead({ label, title, id }: { label: string; title: React.ReactNode; id?: string }) {
+const numerals = ["I", "II", "III", "IV", "V"];
+
+function ExtLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <div id={id} className="reveal mb-12 scroll-mt-24 md:mb-16">
-      <p className="label">{label}</p>
-      <span className="rule mt-4" />
-      <h2 className="mt-6 max-w-3xl font-serif text-4xl leading-[1.05] md:text-6xl">{title}</h2>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1 text-ink-2 underline decoration-hair transition-colors hover:text-ink hover:decoration-gilt-line"
+    >
+      {children}
+      <Icon name="arrowUpRight" className="h-3 w-3" />
+    </a>
+  );
+}
+
+/* A placard: the small text panel that hangs beside each work. */
+function WallLabel({ w, n }: { w: Work; n: number }) {
+  return (
+    <div className="label-in max-w-sm text-[15px] leading-relaxed">
+      <p className="text-[13px] text-gilt">No. {n}</p>
+      <h3 className="display mt-2 text-3xl leading-tight md:text-[2.5rem]">{w.client}</h3>
+      <p className="text-ink-2">{w.location}</p>
+      <p className="mt-4 italic text-ink-2">{w.medium}</p>
+      <p className="mt-4">{w.summary}</p>
+      <ul className="mt-5 space-y-1.5 border-t border-hair pt-4">
+        {w.result.map((r) => (
+          <li key={r} className="flex gap-3">
+            <span className="mt-[0.7em] h-px w-3 shrink-0 bg-gilt-line" aria-hidden />
+            <span>{r}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-[13px]">
+        {w.links.map((l) => (
+          <ExtLink key={l.href} href={l.href}>
+            {l.label}
+          </ExtLink>
+        ))}
+      </p>
     </div>
   );
 }
 
-function Case({ c, i }: { c: CaseStudy; i: number }) {
-  const lead = i === 0;
+/* The hung piece. Real media when supplied, otherwise a title card in a gilt mat. */
+function Piece({ w, ratio }: { w: Work; ratio: string }) {
+  if (w.video)
+    return (
+      <video
+        src={w.video.src}
+        poster={w.video.poster}
+        controls
+        playsInline
+        preload="none"
+        className={`${ratio} w-full bg-wall-2 object-cover`}
+      />
+    );
+  if (w.image)
+    return (
+      <img
+        src={w.image.src}
+        alt={w.image.alt}
+        width={w.image.width}
+        height={w.image.height}
+        loading="lazy"
+        decoding="async"
+        className={`${ratio} w-full object-cover`}
+      />
+    );
   return (
-    <article className="reveal border-t border-line py-12 md:py-20">
-      <div className="grid gap-10 md:grid-cols-12 md:gap-12">
-        <div className={lead ? "md:col-span-7" : "md:col-span-6"}>
-          <p className="label">
-            {String(i + 1).padStart(2, "0")} · {c.industry}
-          </p>
-          <h3 className="mt-5 font-serif text-5xl leading-none md:text-7xl">{c.client}</h3>
-          <p className="mt-3 text-sm text-gold">{c.location}</p>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink/85">{c.summary}</p>
-        </div>
-        <dl className={`grid grid-cols-2 gap-x-6 gap-y-8 text-sm ${lead ? "md:col-span-5" : "md:col-span-5 md:col-start-8"}`}>
-          <div>
-            <dt className="label">Role</dt>
-            <dd className="mt-2">{c.role}</dd>
-          </div>
-          <div>
-            <dt className="label">Work</dt>
-            <dd className="mt-2 leading-relaxed">{c.work.join(", ")}</dd>
-          </div>
-          {c.metrics.map((m) => (
-            <div key={m.label} className="col-span-2 border-t border-line pt-6 sm:col-span-1">
-              <dt className="sr-only">Result</dt>
-              <dd className="font-serif text-4xl md:text-5xl">{m.value}</dd>
-              <dd className="mt-2 text-muted">{m.label}</dd>
-            </div>
-          ))}
-          <div className="col-span-2 flex flex-wrap gap-x-6 gap-y-2 pt-2">
-            {c.links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted underline decoration-line underline-offset-4 transition-colors hover:text-gold hover:decoration-gold"
-              >
-                {l.label} ↗
-              </a>
-            ))}
-          </div>
-        </dl>
+    <div className={`${ratio} relative w-full bg-wall-2`}>
+      <div className="absolute inset-4 border border-gilt-line/50 md:inset-6" aria-hidden />
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-10 text-center">
+        <p className="display text-4xl leading-none md:text-6xl">{w.client}</p>
+        <p className="mt-4 text-[13px] text-ink-2">{w.location}</p>
       </div>
-      {c.quote && (
-        <blockquote className="mt-14 border-l border-gold pl-6 md:ml-[calc(100%/12)] md:mt-20 md:max-w-3xl md:pl-10">
-          <p className="font-serif text-2xl leading-snug md:text-4xl">“{c.quote.text}”</p>
-          <footer className="mt-6 text-sm text-muted">{c.quote.author}</footer>
-        </blockquote>
-      )}
-    </article>
+    </div>
+  );
+}
+
+function Section({ id, title, intro, children }: { id: string; title: string; intro?: string; children: React.ReactNode }) {
+  return (
+    <section id={id} className="scroll-mt-20 px-5 py-20 md:px-10 md:py-32">
+      <div className="mx-auto max-w-[88rem]">
+        <h2 className="display max-w-3xl text-[2.6rem] leading-[1.04] md:text-7xl">{title}</h2>
+        {intro && <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-2">{intro}</p>}
+        <div className="mt-14 md:mt-20">{children}</div>
+      </div>
+    </section>
   );
 }
 
 export default function Home() {
-  const links = [
-    { href: "#work", label: "Work" },
-    ...(voice.length ? [{ href: "#voice", label: "Voice" }] : []),
-    { href: "#about", label: "About" },
-  ];
-
   return (
     <>
-      <Nav name={site.name} links={links} />
-      <RevealObserver />
-      <main id="top" className="overflow-x-clip">
-        {/* Hero */}
-        <section className="mx-auto grid max-w-7xl gap-12 px-5 pb-16 pt-28 md:grid-cols-12 md:gap-10 md:px-10 md:pb-24 md:pt-40">
-          <div className="flex flex-col justify-center md:col-span-7">
-            <p className="label">{site.role}</p>
-            <h1 className="mt-6 font-serif text-[2.9rem] leading-[1.02] sm:text-6xl md:text-[5.6rem]">
-              Strategy, story and <em className="text-gold">voice</em> for brands that want to be remembered.
-            </h1>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
-              <a
-                href="#contact"
-                className="bg-gold px-8 py-4 text-center text-sm font-medium tracking-wide text-bg transition-opacity hover:opacity-90"
-              >
-                Work with me
-              </a>
-              <a href="#work" className="text-center text-sm text-muted transition-colors hover:text-ink">
-                See the results ↓
-              </a>
-            </div>
+      <Labels />
+      <header className="sticky top-0 z-40 border-b border-hair bg-wall/90 backdrop-blur-md">
+        <nav className="mx-auto flex h-14 max-w-[88rem] items-center justify-between gap-4 px-5 md:h-16 md:px-10">
+          <a href="#top" className="display text-lg md:text-xl">
+            {site.name}
+          </a>
+          <div className="flex items-center gap-5 text-[13px] md:gap-8">
+            <a href="#works" className="text-ink-2 transition-colors hover:text-ink">
+              Works
+            </a>
+            <a href="#note" className="hidden text-ink-2 transition-colors hover:text-ink sm:inline">
+              About
+            </a>
+            <a href="#inquire" className="text-ink-2 transition-colors hover:text-ink">
+              Inquire
+            </a>
+            <Lights />
           </div>
-          <div className="md:col-span-5">
-            <div className="relative mx-auto max-w-sm md:max-w-none">
-              <div className="absolute -inset-3 border border-gold/40 md:-inset-4" aria-hidden />
-              <img
-                src="/media/portrait-1024.webp"
-                srcSet="/media/portrait-640.webp 640w, /media/portrait-1024.webp 1024w"
-                sizes="(min-width: 768px) 40vw, 90vw"
-                width={1024}
-                height={1536}
-                alt={`Portrait of ${site.fullName}`}
-                fetchPriority="high"
-                className="relative aspect-[4/5] w-full object-cover object-[50%_12%]"
-              />
-            </div>
-          </div>
-        </section>
+        </nav>
+      </header>
 
-        {/* Proof strip */}
-        <section className="border-y border-line">
-          <dl className="mx-auto grid max-w-7xl grid-cols-2 gap-px bg-line md:grid-cols-4">
-            {proof.map((p) => (
-              <div key={p.label} className="flex flex-col-reverse justify-end bg-bg px-5 py-8 md:px-8 md:py-10">
-                <dt className="mt-2 text-xs leading-relaxed text-muted md:text-sm">{p.label}</dt>
-                <dd className="font-serif text-3xl md:text-5xl">{p.value}</dd>
+      <main id="top">
+        {/* Title wall */}
+        <section className="px-5 pb-20 pt-10 md:px-10 md:pb-32 md:pt-20">
+          <div className="mx-auto grid max-w-[88rem] gap-14 md:grid-cols-12 md:gap-10">
+            <div className="flex flex-col md:col-span-7 md:pt-6">
+              <h1 className="display text-[3.1rem] leading-[0.98] sm:text-7xl md:text-[5.75rem]">
+                Strategy, Story <span className="italic text-gilt">&amp;</span> Voice
+              </h1>
+              <p className="mt-8 max-w-lg text-lg leading-relaxed md:text-xl">
+                Works by {site.fullName}, for brands in Nigeria and the United States. Social media, content and
+                voice-over, from one person.
+              </p>
+              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+                <a
+                  href="#inquire"
+                  className="bg-ink px-7 py-4 text-sm font-medium tracking-wide text-wall transition-opacity hover:opacity-85"
+                >
+                  Commission work
+                </a>
+                <a href="#works" className="inline-flex items-center gap-2 text-sm text-ink-2 transition-colors hover:text-ink">
+                  Walk through the works <Icon name="arrowDown" />
+                </a>
               </div>
-            ))}
-          </dl>
+              <div className="mt-auto hidden pt-16 md:block text-[13px] leading-relaxed text-ink-2 md:pt-24">
+                <p className="text-ink">Works on view for</p>
+                <p className="mt-1 max-w-xl">
+                  {clients.map((c, i) => (
+                    <span key={c.name}>
+                      {c.name} <span className="text-ink-2/70">({c.place})</span>
+                      {i < clients.length - 1 ? ", " : ""}
+                    </span>
+                  ))}
+                </p>
+              </div>
+            </div>
+            <figure className="md:col-span-5">
+              <div className="relative border border-hair p-3 md:p-5">
+                <img
+                  src="/media/portrait-1024.webp"
+                  srcSet="/media/portrait-640.webp 640w, /media/portrait-1024.webp 1024w"
+                  sizes="(min-width: 768px) 38vw, 92vw"
+                  width={1024}
+                  height={1536}
+                  alt={`Portrait of ${site.fullName}`}
+                  fetchPriority="high"
+                  className="aspect-[4/5] w-full object-cover object-[50%_10%]"
+                />
+              </div>
+              <figcaption className="mt-5 text-[13px] leading-relaxed">
+                <span className="block text-ink">{site.fullName}</span>
+                <span className="block text-ink-2">{site.disciplines}</span>
+                <span className="block italic text-ink-2">Portrait, photograph</span>
+              </figcaption>
+            </figure>
+              <div className="text-[13px] leading-relaxed text-ink-2 md:hidden">
+              <p className="text-ink">Works on view for</p>
+              <p className="mt-1 max-w-xl">
+                {clients.map((c, i) => (
+                  <span key={c.name}>
+                    {c.name} <span className="text-ink-2/70">({c.place})</span>
+                    {i < clients.length - 1 ? ", " : ""}
+                  </span>
+                ))}
+              </p>
+            </div>
+          </div>
         </section>
 
-        {/* Clients */}
-        <section className="mx-auto max-w-7xl px-5 py-14 md:px-10 md:py-20">
-          <p className="label">Selected clients</p>
-          <ul className="mt-6 flex flex-wrap gap-x-8 gap-y-3 font-serif text-2xl text-ink/80 md:gap-x-12 md:text-3xl">
-            {clients.map((c) => (
-              <li key={c}>{c}</li>
-            ))}
-          </ul>
+        {/* The works */}
+        <section id="works" className="scroll-mt-14 border-t border-hair px-5 py-20 md:px-10 md:py-32">
+          <div className="mx-auto max-w-[88rem]">
+            <h2 className="display text-[2.6rem] leading-[1.04] md:text-7xl">On view</h2>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-2">
+              Three works, each hung with its result. Every number here comes from the brand itself.
+            </p>
+
+            <div className="mt-16 space-y-24 md:mt-24 md:space-y-40">
+              {/* No. 1: the largest wall */}
+              <article className="grid gap-8 md:grid-cols-12 md:items-end md:gap-10">
+                <div className="md:col-span-7">
+                  <Piece w={works[0]} ratio="aspect-[4/5] md:aspect-[5/4]" />
+                </div>
+                <div className="md:col-span-4 md:col-start-9">
+                  <WallLabel w={works[0]} n={1} />
+                </div>
+              </article>
+
+              {/* No. 2: hung right, label on the left */}
+              <article className="grid gap-8 md:grid-cols-12 md:items-end md:gap-10">
+                <div className="md:order-2 md:col-span-5 md:col-start-7">
+                  <Piece w={works[1]} ratio="aspect-[4/5]" />
+                </div>
+                <div className="md:order-1 md:col-span-4 md:col-start-2">
+                  <WallLabel w={works[1]} n={2} />
+                </div>
+              </article>
+
+              {/* No. 3: a small piece, centred, label beneath */}
+              <article className="mx-auto max-w-md">
+                <Piece w={works[2]} ratio="aspect-square" />
+                <div className="mt-8">
+                  <WallLabel w={works[2]} n={3} />
+                </div>
+              </article>
+            </div>
+          </div>
         </section>
 
-        {/* Work */}
-        <section className="mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-24">
-          <SectionHead
-            id="work"
-            label="Selected work"
-            title={
-              <>
-                Results, not just <em className="text-gold">posts</em>.
-              </>
-            }
-          />
-          {caseStudies.map((c, i) => (
-            <Case key={c.id} c={c} i={i} />
-          ))}
+        {/* Testimony */}
+        <section className="bg-wall-2 px-5 py-20 md:px-10 md:py-32">
+          <figure className="label-in mx-auto max-w-4xl">
+            <blockquote className="display text-[1.9rem] leading-[1.18] md:text-5xl">
+              <span className="text-gilt">“</span>
+              {testimony.text}
+              <span className="text-gilt">”</span>
+            </blockquote>
+            <figcaption className="mt-8 text-[15px]">
+              {testimony.author}
+              <span className="text-ink-2">, {testimony.org}</span>
+            </figcaption>
+          </figure>
         </section>
 
         {videos.length > 0 && (
-          <section className="mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-24">
-            <SectionHead label="Content" title="Made to be watched." />
-            <div className="reveal">
-              <Reels videos={videos} />
-            </div>
-          </section>
+          <Section id="reels" title="Made to be watched." intro="Short-form work from the collection.">
+            <Reels videos={videos} />
+          </Section>
         )}
 
         {voice.length > 0 && (
-          <section className="mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-24">
-            <SectionHead
-              id="voice"
-              label="Voice-over"
-              title={
-                <>
-                  Hear <em className="text-gold">her</em>.
-                </>
-              }
-            />
-            <div className="reveal max-w-3xl">
+          <Section id="voice" title="Hear her." intro="Voice-over samples. Press play.">
+            <div className="max-w-3xl">
               <VoicePlayer clips={voice} />
             </div>
-          </section>
+          </Section>
         )}
 
-        {/* Capabilities */}
-        <section className="bg-surface">
-          <div className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
-            <SectionHead label="What I do" title="Three skills, one point of contact." />
-            <div className="grid gap-12 md:grid-cols-3 md:gap-10">
-              {capabilities.map((c) => (
-                <div key={c.title} className="reveal border-t border-line pt-6">
-                  <h3 className="font-serif text-4xl">{c.title}</h3>
-                  <p className="mt-4 leading-relaxed text-muted">{c.body}</p>
-                </div>
-              ))}
-            </div>
-            <p className="label mt-20">How we work</p>
-            <ol className="mt-6 divide-y divide-line border-y border-line">
-              {process.map((p, i) => (
-                <li key={p.title} className="reveal grid grid-cols-[3rem_1fr] gap-4 py-6 md:grid-cols-[6rem_14rem_1fr]">
-                  <span className="text-sm text-gold">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="font-serif text-2xl">{p.title}</span>
-                  <span className="col-start-2 text-muted md:col-start-3">{p.body}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        {/* About */}
-        <section className="mx-auto grid max-w-7xl gap-12 px-5 py-20 md:grid-cols-12 md:px-10 md:py-28">
-          <div className="reveal md:col-span-5">
-            <img
-              src="/media/portrait-640.webp"
-              width={640}
-              height={960}
-              alt=""
-              loading="lazy"
-              decoding="async"
-              className="aspect-[3/4] w-full object-cover object-top"
-            />
-          </div>
-          <div id="about" className="reveal scroll-mt-24 md:col-span-6 md:col-start-7 md:self-center">
-            <p className="label">About</p>
-            <span className="rule mt-4" />
-            <h2 className="mt-6 font-serif text-4xl leading-[1.05] md:text-6xl">{about.heading}</h2>
-            {about.body.map((p) => (
-              <p key={p} className="mt-6 text-lg leading-relaxed text-ink/80">
-                {p}
-              </p>
+        {/* Rooms */}
+        <Section id="rooms" title="Three rooms, one artist." intro="What she brings to a brand, all from one point of contact.">
+          <ul className="grid border-t border-hair md:grid-cols-3">
+            {rooms.map((r, i) => (
+              <li key={r.name} className="label-in border-b border-hair py-8 md:border-b-0 md:py-10 md:pr-10 md:[&:not(:first-child)]:border-l md:[&:not(:first-child)]:pl-10">
+                <p className="text-[13px] text-gilt">Room {numerals[i]}</p>
+                <h3 className="display mt-3 text-4xl md:text-5xl">{r.name}</h3>
+                <p className="mt-4 max-w-sm leading-relaxed text-ink-2">{r.body}</p>
+              </li>
             ))}
-            <p className="mt-8 font-serif text-2xl italic text-gold">{site.fullName}</p>
+          </ul>
+
+          <h3 className="display mt-24 text-3xl md:mt-32 md:text-4xl">How a commission works</h3>
+          <ol className="mt-8 border-t border-hair">
+            {commission.map((s, i) => (
+              <li key={s.title} className="grid grid-cols-[2.5rem_1fr] gap-x-4 gap-y-1 border-b border-hair py-6 md:grid-cols-[5rem_14rem_1fr] md:items-baseline">
+                <span className="text-[13px] text-gilt">{i + 1}</span>
+                <span className="display text-2xl">{s.title}</span>
+                <span className="col-start-2 leading-relaxed text-ink-2 md:col-start-3">{s.body}</span>
+              </li>
+            ))}
+          </ol>
+        </Section>
+
+        {/* Artist's note */}
+        <section id="note" className="scroll-mt-14 border-t border-hair px-5 py-20 md:px-10 md:py-32">
+          <div className="mx-auto grid max-w-[88rem] gap-10 md:grid-cols-12">
+            <h2 className="display text-[2.6rem] leading-[1.04] md:col-span-5 md:text-6xl">{note.heading}</h2>
+            <div className="max-w-[62ch] text-lg leading-relaxed md:col-span-6 md:col-start-7">
+              {note.body.map((p) => (
+                <p key={p} className="mb-6">
+                  {p}
+                </p>
+              ))}
+              <p className="display text-2xl italic text-gilt">{site.fullName}</p>
+            </div>
           </div>
         </section>
 
-        {/* Contact */}
-        <section id="contact" className="scroll-mt-16 border-t border-line">
-          <div className="mx-auto grid max-w-7xl gap-14 px-5 py-20 md:grid-cols-12 md:px-10 md:py-28">
-            <div className="reveal md:col-span-5">
-              <p className="label">Contact</p>
-              <span className="rule mt-4" />
-              <h2 className="mt-6 font-serif text-5xl leading-[1.02] md:text-7xl">
-                Have something in <em className="text-gold">mind</em>?
+        {/* Inquire */}
+        <section id="inquire" className="after-hours scroll-mt-14 border-t border-hair px-5 py-20 md:px-10 md:py-32">
+          <div className="mx-auto grid max-w-[88rem] gap-14 md:grid-cols-12">
+            <div className="md:col-span-5">
+              <h2 className="display text-5xl leading-[1.02] md:text-7xl">
+                Have something in <span className="italic text-gilt">mind</span>?
               </h2>
-              <p className="mt-6 max-w-sm text-muted">
-                Tell me about your brand and what you want to achieve. I reply within two working days.
+              <p className="mt-6 max-w-sm leading-relaxed text-ink-2">
+                Tell her about your brand and what you want to achieve. Replies within two working days.
               </p>
               {site.email && (
-                <a href={`mailto:${site.email}`} className="mt-8 block text-lg underline decoration-gold underline-offset-4">
+                <a href={`mailto:${site.email}`} className="mt-8 block text-lg underline decoration-gilt-line">
                   {site.email}
                 </a>
               )}
               {site.booking && (
-                <a href={site.booking} target="_blank" rel="noopener noreferrer" className="mt-3 block text-muted hover:text-ink">
-                  Book a call ↗
+                <a href={site.booking} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1 text-ink-2 hover:text-ink">
+                  Book a call <Icon name="arrowUpRight" className="h-3 w-3" />
                 </a>
               )}
             </div>
-            <div className="reveal md:col-span-6 md:col-start-7">
-              {site.email ? (
-                <ContactForm email={site.email} />
-              ) : (
-                <p className="border border-dashed border-line p-6 text-sm text-muted">
-                  Inquiry form appears once the contact email is set in content/site.ts.
-                </p>
-              )}
+            <div className="md:col-span-6 md:col-start-7">
+              <ContactForm email={site.email} />
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-line">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm text-muted md:flex-row md:items-center md:justify-between md:px-10">
+      <footer className="px-5 py-8 text-[13px] text-ink-2 md:px-10">
+        <div className="mx-auto flex max-w-[88rem] flex-col gap-3 md:flex-row md:justify-between">
           <p>
             © {new Date().getFullYear()} {site.fullName}
           </p>
-          <ul className="flex gap-6">
-            {site.socials.map((s) => (
-              <li key={s.href}>
-                <a href={s.href} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
-                  {s.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          {site.socials.length > 0 && (
+            <ul className="flex gap-6">
+              {site.socials.map((s) => (
+                <li key={s.href}>
+                  <ExtLink href={s.href}>{s.label}</ExtLink>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </footer>
     </>

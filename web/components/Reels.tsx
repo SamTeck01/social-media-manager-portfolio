@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import Icon from "@/components/Icon";
 import type { Video } from "@/content/site";
 
 function ReelCard({ v }: { v: Video }) {
@@ -21,7 +22,7 @@ function ReelCard({ v }: { v: Video }) {
       <button
         onClick={toggle}
         aria-label={`${playing ? "Pause" : "Play"} ${v.title}`}
-        className="relative block aspect-[9/16] w-full overflow-hidden bg-surface"
+        className="relative block aspect-[9/16] w-full overflow-hidden bg-wall-2"
       >
         <video
           ref={ref}
@@ -36,20 +37,20 @@ function ReelCard({ v }: { v: Video }) {
         />
         {!playing && (
           <span className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/50 via-transparent">
-            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-ink/60 text-ink backdrop-blur-sm">
-              ▶
+            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/70 text-white">
+              <Icon name="play" className="h-4 w-4" />
             </span>
           </span>
         )}
         {v.metric && (
-          <span className="absolute left-3 top-3 bg-bg/80 px-2.5 py-1 text-[11px] text-gold">
+          <span className="absolute left-3 top-3 bg-wall/85 px-2.5 py-1 text-[11px] text-gilt">
             {v.metric}
           </span>
         )}
       </button>
       <figcaption className="mt-3 text-sm">
         <span className="text-ink">{v.title}</span>
-        <span className="block text-muted">{v.client}</span>
+        <span className="block text-ink-2">{v.client}</span>
       </figcaption>
     </figure>
   );
@@ -75,7 +76,7 @@ export default function Reels({ videos }: { videos: Video[] }) {
               aria-selected={active === c}
               onClick={() => setActive(c)}
               className={`shrink-0 border-b pb-2 transition-colors ${
-                active === c ? "border-gold text-ink" : "border-transparent text-muted hover:text-ink"
+                active === c ? "border-gilt-line text-ink" : "border-transparent text-ink-2 hover:text-ink"
               }`}
             >
               {c}

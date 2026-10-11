@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Icon from "@/components/Icon";
 import type { VoiceClip } from "@/content/site";
 
 const fmt = (s: number) =>
@@ -32,7 +33,7 @@ export default function VoicePlayer({ clips }: { clips: VoiceClip[] }) {
   };
 
   return (
-    <div className="border border-line bg-surface p-5 md:p-8">
+    <div className="border border-hair bg-wall-2 p-5 md:p-8">
       {styles.length > 1 && (
         <div className="mb-6 flex gap-6 text-sm" role="tablist">
           {styles.map((s) => (
@@ -44,7 +45,7 @@ export default function VoicePlayer({ clips }: { clips: VoiceClip[] }) {
                 setStyle(s);
                 setIdx(0);
               }}
-              className={`border-b pb-2 ${s === style ? "border-gold text-ink" : "border-transparent text-muted"}`}
+              className={`border-b pb-2 ${s === style ? "border-gilt-line text-ink" : "border-transparent text-ink-2"}`}
             >
               {s}
             </button>
@@ -55,9 +56,9 @@ export default function VoicePlayer({ clips }: { clips: VoiceClip[] }) {
         <button
           onClick={toggle}
           aria-label={playing ? "Pause" : "Play"}
-          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold text-bg transition-transform active:scale-95"
+          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-gilt-line text-gilt transition-transform active:scale-95"
         >
-          {playing ? "❚❚" : "▶"}
+          <Icon name={playing ? "pause" : "play"} className="h-5 w-5" />
         </button>
         <div className="min-w-0 flex-1">
           <p className="truncate font-serif text-2xl">{clip.title}</p>
@@ -71,21 +72,21 @@ export default function VoicePlayer({ clips }: { clips: VoiceClip[] }) {
             onChange={(e) => {
               if (audio.current) audio.current.currentTime = Number(e.target.value);
             }}
-            className="mt-3 w-full accent-[var(--gold)]"
+            className="mt-3 w-full accent-[var(--gilt-line)]"
           />
-          <div className="mt-1 flex justify-between text-xs text-muted">
+          <div className="mt-1 flex justify-between text-xs text-ink-2">
             <span>{fmt(t)}</span>
             <span>{fmt(d)}</span>
           </div>
         </div>
       </div>
       {list.length > 1 && (
-        <ul className="mt-6 divide-y divide-line border-t border-line text-sm">
+        <ul className="mt-6 divide-y divide-hair border-t border-hair text-sm">
           {list.map((c, i) => (
             <li key={c.src}>
               <button
                 onClick={() => setIdx(i)}
-                className={`flex w-full justify-between py-3 text-left ${i === idx ? "text-gold" : "text-muted hover:text-ink"}`}
+                className={`flex w-full justify-between py-3 text-left ${i === idx ? "text-gilt" : "text-ink-2 hover:text-ink"}`}
               >
                 <span>{c.title}</span>
                 <span>{c.duration}</span>

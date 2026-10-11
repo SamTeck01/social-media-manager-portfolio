@@ -1,85 +1,136 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* The white cube by day. */
 :root {
-  --bg: #0f0e0d;
-  --surface: #171513;
-  --surface-2: #1e1b18;
-  --ink: #ede7dd;
-  --muted: #9a9389;
-  --line: rgba(237, 231, 221, 0.12);
-  --gold: #c6a664;
-  --gold-soft: rgba(198, 166, 100, 0.14);
+  --wall: #f6f4ef;
+  --wall-2: #eeebe4;
+  --ink: #121110;
+  --ink-2: #57534d;
+  --hair: rgba(18, 17, 16, 0.14);
+  --gilt: #8f6d33;
+  --gilt-line: #b8955a;
+  color-scheme: light;
+}
+
+/* The same room after hours. */
+[data-theme="dark"] {
+  --wall: #0e0d0c;
+  --wall-2: #171513;
+  --ink: #eee9e0;
+  --ink-2: #a39d93;
+  --hair: rgba(238, 233, 224, 0.14);
+  --gilt: #c9a96a;
+  --gilt-line: #c9a96a;
+  color-scheme: dark;
+}
+
+/* The inquiry room is always lit low, in either mode. */
+.after-hours {
+  --wall: #0e0d0c;
+  --wall-2: #171513;
+  --ink: #eee9e0;
+  --ink-2: #a39d93;
+  --hair: rgba(238, 233, 224, 0.16);
+  --gilt: #c9a96a;
+  --gilt-line: #c9a96a;
+  color-scheme: dark;
+  background: var(--wall);
+  color: var(--ink);
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
+  --color-wall: var(--wall);
+  --color-wall-2: var(--wall-2);
   --color-ink: var(--ink);
-  --color-muted: var(--muted);
-  --color-line: var(--line);
-  --color-gold: var(--gold);
-  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
-  --font-sans: "Inter Tight Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-ink-2: var(--ink-2);
+  --color-hair: var(--hair);
+  --color-gilt: var(--gilt);
+  --color-gilt-line: var(--gilt-line);
+  --font-display: "Bodoni Moda Variable", "Bodoni 72", Didot, serif;
+  --font-sans: "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  scrollbar-color: var(--hair) var(--wall);
 }
 
 body {
-  background: var(--bg);
+  background: var(--wall);
   color: var(--ink);
   font-family: var(--font-sans);
+  font-feature-settings: "tnum" 1;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 ::selection {
-  background: var(--gold);
-  color: var(--bg);
+  background: var(--gilt-line);
+  color: var(--wall);
 }
 
 :focus-visible {
-  outline: 1px solid var(--gold);
-  outline-offset: 3px;
+  outline: 1px solid var(--gilt-line);
+  outline-offset: 4px;
 }
 
-.label {
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
+a {
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
 }
 
-.rule {
-  display: block;
-  width: 2.5rem;
-  height: 1px;
-  background: var(--gold);
+input,
+textarea,
+select {
+  caret-color: var(--gilt-line);
 }
 
-/* Scroll reveal: transform/opacity only, so it stays on the GPU and never janks. */
-.reveal {
+/* Wall labels settle into place as the visitor walks past. One authored moment. */
+.js .label-in {
   opacity: 0;
-  transform: translate3d(0, 18px, 0);
+  transform: translate3d(0, 10px, 0);
+  filter: blur(4px);
   transition:
-    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
-    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo),
+    filter 0.9s var(--ease-out-expo);
 }
-.reveal.is-in {
+.js .label-in.is-in {
   opacity: 1;
   transform: none;
+  filter: none;
+}
+
+/* Lights switch: the whole room cross-fades. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .reveal {
+  .js .label-in {
     opacity: 1;
     transform: none;
+    filter: none;
     transition: none;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
   }
 }
