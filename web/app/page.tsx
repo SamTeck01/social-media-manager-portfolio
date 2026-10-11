@@ -55,8 +55,14 @@ export default function Home() {
 
       <header className="fixed inset-x-0 top-0 z-50 border-b border-hair bg-wall/70 backdrop-blur-xl">
         <nav className="mx-auto flex h-16 max-w-[92rem] items-center justify-between px-5 md:h-20 md:px-10">
-          <a href="#top" className="display text-xl">
-            {site.name}
+          <a href="#top" aria-label={site.name} className="display shrink-0 whitespace-nowrap text-xl">
+            {/* Very narrow screens get the monogram so the header never overflows. */}
+            <span aria-hidden className="min-[400px]:hidden">
+              M.A.
+            </span>
+            <span aria-hidden className="hidden min-[400px]:inline">
+              {site.name}
+            </span>
           </a>
           <div className="flex items-center gap-2 text-sm md:gap-8">
             <a href="#work" className="sweep hidden text-ink-2 transition-colors hover:text-ink md:inline">
@@ -70,9 +76,10 @@ export default function Home() {
             </a>
             <a
               href="#contact"
-              className="mr-1 rounded-full bg-gold px-4 py-2.5 text-[13px] font-medium text-wall transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-[0.97] md:mr-0 md:px-5"
+              className="mr-1 whitespace-nowrap rounded-full bg-gold px-4 py-2.5 text-[13px] font-medium text-wall transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-[0.97] md:mr-0 md:px-5"
             >
-              Work with me
+              <span className="min-[340px]:hidden">Hire me</span>
+              <span className="hidden min-[340px]:inline">Work with me</span>
             </a>
             <ThemeToggle />
           </div>
@@ -370,7 +377,7 @@ export default function Home() {
         {/* About */}
         <section id="about" className="scroll-mt-16 px-5 pb-24 md:px-10 md:pb-36">
           <div className="mx-auto grid max-w-[92rem] items-center gap-12 md:grid-cols-12 md:gap-10">
-            <div className="md:col-span-5">
+            <div className="overflow-hidden rounded-2xl md:col-span-5">
               <img
                 src="/media/about-suit-853.webp"
                 srcSet="/media/about-suit-640.webp 640w, /media/about-suit-853.webp 853w"

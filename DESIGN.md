@@ -38,3 +38,8 @@ Dark by default (the client asked for black and gold), with a light-mode toggle.
 - **Progress line:** 2px gold scroll indicator at the top.
 - **Hover:** gold underline sweep on nav links, arrow nudge on secondary links, 0.97 press scale on buttons.
 - Browsers without scroll timelines get the static layout; reduced motion turns everything off.
+
+## Responsive rules
+- Tested with no sideways scrolling from 240px to 2560px wide, in both themes (Playwright check across 17 widths).
+- Header: logo becomes the "M.A." monogram below 400px; the header button reads "Hire me" below 340px; nothing in the header wraps.
+- Hero name: `19vw` on mobile, `min(16vw, 21svh)` from md up so short, wide screens never push it under the header or into the copy.
