@@ -37,7 +37,10 @@ export type Screen = { src: string; alt: string; platform: string; handle: strin
 export const site = {
   name: "Miracle Akhimien",
   fullName: "Miracle Wealth Akhimien",
-  disciplines: "Social media manager, content creator and voice-over artist",
+  disciplines: "Social Media Manager, Content Creator & Voice-Over Artist",
+  pitch:
+    "Helping ambitious brands build a stronger digital presence through strategic content, creative storytelling and social media management.",
+  reach: "Working with brands across global markets.",
   // TODO(client): confirm public email, booking link and her own handles.
   email: "",
   booking: "",

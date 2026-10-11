@@ -97,3 +97,12 @@ File: `assets/photos/miracle-portrait-full.webp` (1024×1536, full-length, stand
 - **Hero use:** a tall portrait column on the right with the type on the left. On mobile, crop from head to waist above the headline.
 - **Resolution:** 1024×1536 is too small for a large desktop hero (it gets soft above ~800px wide). **Ask for the original full-resolution file** (straight from the photographer, not via WhatsApp).
 - **Still needed:** one or two more photos for About and Work so the same image doesn't repeat. Ideally one of her working: filming, editing, or at a mic.
+
+
+---
+
+## 8. Photos and positioning update (11/10/2026)
+
+- Client supplied five studio photos. In use (her pick: two gowns, one suit): navy gown on black (dark-mode hero, background removed), grey gown on cream (light-mode hero), burgundy suit (About).
+- New hero copy from client: "Social Media Manager, Content Creator & Voice-Over Artist" / "Helping ambitious brands build a stronger digital presence through strategic content, creative storytelling and social media management." / "Working with brands across global markets."
+- Positioning: drop "Nigeria and the United States" from headline copy, because the client feels it limits her. Client cities stay on the case studies as facts.

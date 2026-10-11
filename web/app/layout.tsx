@@ -8,13 +8,13 @@ import { site } from "@/content/site";
 
 const title = `${site.name}: Strategy, Story & Voice`;
 const description =
-  "Miracle Akhimien is a social media manager, content creator and voice-over artist working with brands in Nigeria and the United States.";
+  "Miracle Akhimien: Social Media Manager, Content Creator & Voice-Over Artist. Helping ambitious brands build a stronger digital presence through strategic content, creative storytelling and social media management.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title,
   description,
-  openGraph: { title, description, images: ["/media/portrait-1024.webp"], type: "website" },
+  openGraph: { title, description, images: ["/media/about-suit-853.webp"], type: "website" },
 };
 
 export const viewport: Viewport = {

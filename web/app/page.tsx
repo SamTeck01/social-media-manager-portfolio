@@ -101,6 +101,18 @@ export default function Home() {
               Akhimien
             </span>
           </h1>
+          {/* Navy gown on the dark theme, grey gown on the light theme: each was shot on a matching ground. */}
+          <img
+            src="/media/hero-navy-900.webp"
+            srcSet="/media/hero-navy-520.webp 520w, /media/hero-navy-900.webp 900w"
+            sizes="(min-width: 768px) 32vw, 70vw"
+            width={900}
+            height={2237}
+            alt=""
+            fetchPriority="high"
+            className="enter-lift par-figure absolute bottom-0 left-1/2 hidden h-[72svh] w-auto max-w-none -translate-x-1/2 dark:block md:h-[86svh]"
+            style={{ animationDelay: "250ms" }}
+          />
           <img
             src="/media/portrait-cut-900.webp"
             srcSet="/media/portrait-cut-520.webp 520w, /media/portrait-cut-900.webp 900w"
@@ -108,17 +120,16 @@ export default function Home() {
             width={900}
             height={2560}
             alt=""
-            fetchPriority="high"
-            className="enter-lift par-figure absolute bottom-0 left-1/2 h-[78svh] w-auto max-w-none -translate-x-1/2 md:h-[86svh]"
+            loading="lazy"
+            className="enter-lift par-figure absolute bottom-0 left-1/2 h-[72svh] w-auto max-w-none -translate-x-1/2 dark:hidden md:h-[86svh]"
             style={{ animationDelay: "250ms" }}
           />
           <div className="absolute inset-x-0 bottom-0 h-[34svh] bg-gradient-to-t from-wall via-wall/80 to-transparent" aria-hidden />
           <div className="par-copy absolute inset-x-0 bottom-0 mx-auto flex max-w-[92rem] flex-col gap-6 px-5 pb-8 md:flex-row md:items-end md:justify-between md:px-10 md:pb-12">
-            <div className="enter-rise max-w-md" style={{ animationDelay: "500ms" }}>
-              <p className="text-[17px] leading-relaxed md:text-lg">
-                Social media manager, content creator and voice-over artist for brands in{" "}
-                <span className="text-gold">Nigeria</span> and the <span className="text-gold">United States</span>.
-              </p>
+            <div className="enter-rise max-w-[34rem]" style={{ animationDelay: "500ms" }}>
+              <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-gold">{site.disciplines}</p>
+              <p className="mt-3 max-w-md text-[17px] leading-relaxed md:text-lg">{site.pitch}</p>
+              <p className="mt-2 text-sm text-ink-2">{site.reach}</p>
               <div className="mt-6 flex items-center gap-6">
                 <a
                   href="#contact"
@@ -373,15 +384,15 @@ export default function Home() {
           <div className="mx-auto grid max-w-[92rem] items-center gap-12 md:grid-cols-12 md:gap-10">
             <div className="md:col-span-5">
               <img
-                src="/media/portrait-1024.webp"
-                srcSet="/media/portrait-640.webp 640w, /media/portrait-1024.webp 1024w"
+                src="/media/about-suit-853.webp"
+                srcSet="/media/about-suit-640.webp 640w, /media/about-suit-853.webp 853w"
                 sizes="(min-width: 768px) 40vw, 92vw"
                 width={1024}
                 height={1536}
-                alt={`${site.fullName} in a grey dress, smiling`}
+                alt={`${site.fullName} in a burgundy suit, smiling`}
                 loading="lazy"
                 decoding="async"
-                className="curtain aspect-[4/5] w-full rounded-2xl object-cover object-[50%_15%]"
+                className="curtain aspect-[4/5] w-full rounded-2xl object-cover object-[50%_20%]"
               />
             </div>
             <div className="md:col-span-6 md:col-start-7">
