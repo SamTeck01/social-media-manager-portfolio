@@ -86,16 +86,16 @@ export default function Home() {
             className="absolute inset-0 -z-20 bg-[radial-gradient(60%_55%_at_50%_60%,var(--wall-3),transparent_70%)]"
             aria-hidden
           />
-          <h1 className="par-name relative -z-10 pt-24 text-center md:absolute md:inset-x-0 md:top-[12svh] md:pt-0">
+          <h1 className="par-name relative -z-10 pt-24 text-center md:absolute md:inset-x-0 md:top-[calc(5rem+4svh)] md:pt-0">
             <span className="sr-only">
               {site.fullName}, {site.disciplines}
             </span>
-            <span aria-hidden className="display enter-rise block text-[19vw] leading-[0.82] md:text-[16vw]">
+            <span aria-hidden className="display enter-rise block text-[19vw] leading-[0.82] md:text-[min(16vw,21svh)]">
               Miracle
             </span>
             <span
               aria-hidden
-              className="display enter-rise block text-[19vw] italic leading-[0.82] text-gold md:text-[16vw]"
+              className="display enter-rise block text-[19vw] italic leading-[0.82] text-gold md:text-[min(16vw,21svh)]"
               style={{ animationDelay: "120ms" }}
             >
               Akhimien
@@ -112,7 +112,7 @@ export default function Home() {
             className="enter-lift par-figure relative mx-auto -mt-[16vw] block h-auto w-[92vw] max-w-none md:absolute md:bottom-0 md:left-1/2 md:mt-0 md:h-[76svh] md:w-auto md:-translate-x-1/2"
             style={{ animationDelay: "250ms" }}
           />
-          <div className="absolute inset-x-0 bottom-0 hidden h-[34svh] bg-gradient-to-t from-wall via-wall/80 to-transparent md:block" aria-hidden />
+          <div className="absolute inset-x-0 bottom-0 hidden h-[24svh] bg-gradient-to-t from-wall via-wall/70 to-transparent md:block" aria-hidden />
           <div className="par-copy relative -mt-32 mx-auto flex max-w-[92rem] flex-col gap-6 bg-gradient-to-t from-wall from-60% to-transparent px-5 pb-12 pt-28 md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:bg-none md:pt-0 md:pb-12 md:flex-row md:items-end md:justify-between md:px-10 md:pb-12">
             <div className="enter-rise max-w-[27rem] lg:max-w-[30rem]" style={{ animationDelay: "500ms" }}>
               <p className="max-w-[23rem] text-[13px] font-medium uppercase leading-relaxed tracking-[0.14em] text-gold">{site.disciplines}</p>
