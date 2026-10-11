@@ -15,7 +15,7 @@ Dark by default (the client asked for black and gold), with a light-mode toggle.
 `.night` forces the dark palette (contact + footer). Theme stored in `localStorage.theme`, set before paint.
 
 ## Type
-- Display: Bodoni Moda (variable, optical size). Hero name at 17vw desktop / 24vw mobile, second line italic gold.
+- Display: Orange Avenue by Ratna Krismawati (commercial licence supplied by client; `web/public/fonts/orange-avenue.woff2`, preloaded). It has no italic, so emphasis words stay upright in gold. Bodoni Moda is the fallback. Hero name at 16vw desktop / 19vw mobile.
 - Text: Hanken Grotesk (variable). Self-hosted via @fontsource.
 
 ## Signature moments

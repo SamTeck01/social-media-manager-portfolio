@@ -86,16 +86,16 @@ export default function Home() {
             className="absolute inset-0 -z-20 bg-[radial-gradient(60%_55%_at_50%_60%,var(--wall-3),transparent_70%)]"
             aria-hidden
           />
-          <h1 className="par-name absolute inset-x-0 top-[13svh] -z-10 text-center md:top-[10svh]">
+          <h1 className="par-name absolute inset-x-0 top-[13svh] -z-10 text-center md:top-[12svh]">
             <span className="sr-only">
               {site.fullName}, {site.disciplines}
             </span>
-            <span aria-hidden className="display enter-rise block text-[24vw] leading-[0.82] md:text-[17vw]">
+            <span aria-hidden className="display enter-rise block text-[19vw] leading-[0.82] md:text-[16vw]">
               Miracle
             </span>
             <span
               aria-hidden
-              className="display enter-rise block text-[24vw] italic leading-[0.82] text-gold md:text-[17vw]"
+              className="display enter-rise block text-[19vw] italic leading-[0.82] text-gold md:text-[16vw]"
               style={{ animationDelay: "120ms" }}
             >
               Akhimien
@@ -400,8 +400,8 @@ export default function Home() {
         <section id="contact" className="night scroll-mt-16 border-t border-hair px-5 py-24 md:px-10 md:py-36">
           <div className="mx-auto grid max-w-[92rem] gap-14 md:grid-cols-12">
             <div className="md:col-span-6">
-              <h2 className="display split text-6xl leading-[0.95] md:text-8xl">
-                Let&rsquo;s make your brand <span className="italic text-gold">unforgettable</span>.
+              <h2 className="display split text-[11.5vw] leading-[0.95] md:text-8xl">
+                Let&rsquo;s make your brand <span className="italic text-gold">unforgettable.</span>
               </h2>
               <p className="reveal mt-8 max-w-sm leading-relaxed text-ink-2">
                 Tell her about your brand and what you want to achieve. Replies within two working days.
