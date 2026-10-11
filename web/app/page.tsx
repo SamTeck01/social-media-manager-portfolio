@@ -51,6 +51,7 @@ export default function Home() {
   return (
     <>
       <Reveal />
+      <div className="progress" aria-hidden />
 
       <header className="fixed inset-x-0 top-0 z-50 border-b border-hair bg-wall/70 backdrop-blur-xl">
         <nav className="mx-auto flex h-16 max-w-[92rem] items-center justify-between px-5 md:h-20 md:px-10">
@@ -58,13 +59,13 @@ export default function Home() {
             {site.name}
           </a>
           <div className="flex items-center gap-2 text-sm md:gap-8">
-            <a href="#work" className="hidden text-ink-2 transition-colors hover:text-ink md:inline">
+            <a href="#work" className="sweep hidden text-ink-2 transition-colors hover:text-ink md:inline">
               Work
             </a>
-            <a href="#services" className="hidden text-ink-2 transition-colors hover:text-ink md:inline">
+            <a href="#services" className="sweep hidden text-ink-2 transition-colors hover:text-ink md:inline">
               Services
             </a>
-            <a href="#about" className="hidden text-ink-2 transition-colors hover:text-ink md:inline">
+            <a href="#about" className="sweep hidden text-ink-2 transition-colors hover:text-ink md:inline">
               About
             </a>
             <a
@@ -85,7 +86,7 @@ export default function Home() {
             className="absolute inset-0 -z-20 bg-[radial-gradient(60%_55%_at_50%_60%,var(--wall-3),transparent_70%)]"
             aria-hidden
           />
-          <h1 className="absolute inset-x-0 top-[13svh] -z-10 text-center md:top-[10svh]">
+          <h1 className="par-name absolute inset-x-0 top-[13svh] -z-10 text-center md:top-[10svh]">
             <span className="sr-only">
               {site.fullName}, {site.disciplines}
             </span>
@@ -108,11 +109,11 @@ export default function Home() {
             height={2560}
             alt=""
             fetchPriority="high"
-            className="enter-lift absolute bottom-0 left-1/2 h-[78svh] w-auto max-w-none -translate-x-1/2 md:h-[86svh]"
+            className="enter-lift par-figure absolute bottom-0 left-1/2 h-[78svh] w-auto max-w-none -translate-x-1/2 md:h-[86svh]"
             style={{ animationDelay: "250ms" }}
           />
           <div className="absolute inset-x-0 bottom-0 h-[34svh] bg-gradient-to-t from-wall via-wall/80 to-transparent" aria-hidden />
-          <div className="absolute inset-x-0 bottom-0 mx-auto flex max-w-[92rem] flex-col gap-6 px-5 pb-8 md:flex-row md:items-end md:justify-between md:px-10 md:pb-12">
+          <div className="par-copy absolute inset-x-0 bottom-0 mx-auto flex max-w-[92rem] flex-col gap-6 px-5 pb-8 md:flex-row md:items-end md:justify-between md:px-10 md:pb-12">
             <div className="enter-rise max-w-md" style={{ animationDelay: "500ms" }}>
               <p className="text-[17px] leading-relaxed md:text-lg">
                 Social media manager, content creator and voice-over artist for brands in{" "}
@@ -125,7 +126,7 @@ export default function Home() {
                 >
                   Start a project
                 </a>
-                <a href="#work" className="inline-flex items-center gap-2 text-sm text-ink-2 transition-colors hover:text-ink">
+                <a href="#work" className="nudge inline-flex items-center gap-2 text-sm text-ink-2 transition-colors hover:text-ink">
                   See the results <Icon name="arrowDown" />
                 </a>
               </div>
@@ -145,11 +146,12 @@ export default function Home() {
         </section>
 
         {/* Clients */}
-        <section className="border-y border-hair px-5 py-8 md:px-10">
-          <ul className="mx-auto flex max-w-[92rem] flex-wrap items-center justify-center gap-x-10 gap-y-3 md:justify-between">
-            {clients.map((c) => (
-              <li key={c.name} className="display text-xl text-ink-2 md:text-2xl">
-                {c.name}
+        <section className="drift-wrap overflow-hidden border-y border-hair py-7" aria-label="Clients">
+          <ul className="drift-fast flex w-max items-center">
+            {[...clients, ...clients, ...clients, ...clients].map((c, i) => (
+              <li key={i} aria-hidden={i >= clients.length} className="display flex items-center whitespace-nowrap text-2xl text-ink-2 md:text-3xl">
+                <span className="px-8 md:px-12">{c.name}</span>
+                <span className="h-1.5 w-1.5 rotate-45 bg-gold" aria-hidden />
               </li>
             ))}
           </ul>
@@ -158,7 +160,7 @@ export default function Home() {
         {/* Results */}
         <section id="work" className="scroll-mt-16 px-5 py-24 md:px-10 md:py-36">
           <div className="mx-auto max-w-[92rem]">
-            <h2 className="display reveal max-w-4xl text-5xl leading-[0.98] md:text-8xl">
+            <h2 className="display split max-w-4xl text-5xl leading-[0.98] md:text-8xl">
               Results you can <span className="italic text-gold">check</span>.
             </h2>
             <p className="reveal mt-6 max-w-lg text-lg leading-relaxed text-ink-2" style={{ ["--d" as string]: "80ms" }}>
@@ -167,7 +169,7 @@ export default function Home() {
 
             {/* ADOSE */}
             <article className="mt-20 grid items-center gap-12 md:mt-28 md:grid-cols-12 md:gap-10">
-              <div className="reveal mx-auto w-[64%] max-w-[300px] md:col-span-4 md:col-start-2 md:w-full">
+              <div className="reveal float mx-auto w-[64%] max-w-[300px] md:col-span-4 md:col-start-2 md:w-full">
                 <a href={adose.screens[0].href} target="_blank" rel="noopener noreferrer" aria-label="Open ADOSE Fashion on Instagram">
                   <Phone s={adose.screens[0]} className="rotate-[-3deg] transition-transform duration-500 ease-[var(--ease-out-expo)] hover:rotate-0" />
                 </a>
@@ -236,7 +238,7 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Open ${ffd.client} on ${s.platform}`}
-                    className="reveal absolute top-1/2 w-[46%] max-w-[250px] transition-transform duration-500 ease-[var(--ease-out-expo)] hover:z-10"
+                    className={`reveal ${i === 0 ? "float" : "float-slow"} absolute top-1/2 w-[46%] max-w-[250px] transition-transform duration-500 ease-[var(--ease-out-expo)] hover:z-10`}
                     style={{
                       left: `${[27, 2, 52][i]}%`,
                       zIndex: [3, 2, 1][i],
@@ -290,7 +292,7 @@ export default function Home() {
         {/* Content wall */}
         <section className="py-24 md:py-36">
           <div className="mx-auto mb-12 flex max-w-[92rem] flex-col gap-4 px-5 md:mb-16 md:flex-row md:items-end md:justify-between md:px-10">
-            <h2 className="display reveal text-5xl leading-[0.98] md:text-8xl">
+            <h2 className="display split text-5xl leading-[0.98] md:text-8xl">
               See it <span className="italic text-gold">live</span>.
             </h2>
             <p className="reveal max-w-sm text-ink-2">
@@ -333,7 +335,7 @@ export default function Home() {
         {voice.length > 0 && (
           <section id="voice" className="px-5 pb-24 md:px-10 md:pb-36">
             <div className="mx-auto max-w-[92rem]">
-              <h2 className="display reveal text-5xl md:text-8xl">
+              <h2 className="display split text-5xl md:text-8xl">
                 Hear <span className="italic text-gold">her</span>.
               </h2>
               <div className="reveal mt-12 max-w-3xl">
@@ -346,7 +348,7 @@ export default function Home() {
         {/* Services */}
         <section id="services" className="scroll-mt-16 border-t border-hair px-5 py-24 md:px-10 md:py-36">
           <div className="mx-auto max-w-[92rem]">
-            <h2 className="display reveal max-w-4xl text-5xl leading-[0.98] md:text-8xl">
+            <h2 className="display split max-w-4xl text-5xl leading-[0.98] md:text-8xl">
               Three skills. <span className="italic text-gold">One</span> hire.
             </h2>
             <ul className="mt-16 border-t border-hair md:mt-24">
@@ -369,7 +371,7 @@ export default function Home() {
         {/* About */}
         <section id="about" className="scroll-mt-16 px-5 pb-24 md:px-10 md:pb-36">
           <div className="mx-auto grid max-w-[92rem] items-center gap-12 md:grid-cols-12 md:gap-10">
-            <div className="reveal md:col-span-5">
+            <div className="md:col-span-5">
               <img
                 src="/media/portrait-1024.webp"
                 srcSet="/media/portrait-640.webp 640w, /media/portrait-1024.webp 1024w"
@@ -379,11 +381,11 @@ export default function Home() {
                 alt={`${site.fullName} in a grey dress, smiling`}
                 loading="lazy"
                 decoding="async"
-                className="aspect-[4/5] w-full rounded-2xl object-cover object-[50%_15%]"
+                className="curtain aspect-[4/5] w-full rounded-2xl object-cover object-[50%_15%]"
               />
             </div>
             <div className="md:col-span-6 md:col-start-7">
-              <h2 className="display reveal text-5xl leading-[0.98] md:text-7xl">{note.heading}</h2>
+              <h2 className="display split text-5xl leading-[0.98] md:text-7xl">{note.heading}</h2>
               {note.body.map((p, i) => (
                 <p key={p} className="reveal mt-6 max-w-[60ch] text-lg leading-relaxed text-ink-2" style={{ ["--d" as string]: `${(i + 1) * 80}ms` }}>
                   {p}
@@ -398,7 +400,7 @@ export default function Home() {
         <section id="contact" className="night scroll-mt-16 border-t border-hair px-5 py-24 md:px-10 md:py-36">
           <div className="mx-auto grid max-w-[92rem] gap-14 md:grid-cols-12">
             <div className="md:col-span-6">
-              <h2 className="display reveal text-6xl leading-[0.95] md:text-8xl">
+              <h2 className="display split text-6xl leading-[0.95] md:text-8xl">
                 Let&rsquo;s make your brand <span className="italic text-gold">unforgettable</span>.
               </h2>
               <p className="reveal mt-8 max-w-sm leading-relaxed text-ink-2">

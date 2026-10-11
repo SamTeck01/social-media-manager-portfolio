@@ -174,3 +174,170 @@ select {
     animation: none;
   }
 }
+
+/* ---------- Motion layer ---------- */
+
+/* Headlines rise word by word from behind a mask. Words are wrapped by Reveal.tsx. */
+.split .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.split .w > span {
+  display: inline-block;
+}
+.js .split .w > span {
+  transform: translate3d(0, 110%, 0);
+  transition: transform 1.1s var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.js .split.is-in .w > span {
+  transform: none;
+}
+
+/* Images open like a curtain. */
+.js .curtain {
+  clip-path: inset(14% 8% 14% 8% round 1rem);
+  scale: 1.08;
+  transition:
+    clip-path 1.4s var(--ease-out-expo),
+    scale 1.6s var(--ease-out-expo);
+}
+.js .curtain.is-in {
+  clip-path: inset(0 0 0 0 round 1rem);
+  scale: 1;
+}
+
+/* Gold underline that draws across on hover. */
+.sweep {
+  position: relative;
+}
+.sweep::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+.sweep:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Arrow nudge inside links and buttons. */
+.nudge svg {
+  transition: translate 0.3s var(--ease-out-expo);
+}
+.nudge:hover svg {
+  translate: 0 3px;
+}
+
+.drift-fast {
+  animation: drift 40s linear infinite;
+}
+
+/* Scroll-linked motion where the browser supports it; static elsewhere. */
+@supports (animation-timeline: scroll()) {
+  .progress {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 2px;
+    z-index: 60;
+    background: var(--gold);
+    transform-origin: left;
+    animation: grow linear both;
+    animation-timeline: scroll(root);
+  }
+  @keyframes grow {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  .par-name {
+    animation: par-name linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100svh;
+  }
+  @keyframes par-name {
+    to {
+      translate: 0 22svh;
+      opacity: 0.15;
+    }
+  }
+  .par-figure {
+    animation: par-figure linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100svh;
+  }
+  @keyframes par-figure {
+    to {
+      translate: -50% -4svh;
+      scale: 1.04;
+    }
+  }
+  .par-copy {
+    animation: par-copy linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 50svh;
+  }
+  @keyframes par-copy {
+    to {
+      opacity: 0;
+      translate: 0 -30px;
+    }
+  }
+
+  /* Phones float against the scroll. Uses `translate` so it stacks on their rotation. */
+  .float {
+    animation: float linear both;
+    animation-timeline: view();
+  }
+  .float-slow {
+    animation: float-slow linear both;
+    animation-timeline: view();
+  }
+  @keyframes float {
+    from {
+      translate: 0 70px;
+    }
+    to {
+      translate: 0 -70px;
+    }
+  }
+  @keyframes float-slow {
+    from {
+      translate: 0 30px;
+    }
+    to {
+      translate: 0 -30px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .split .w > span,
+  .js .curtain {
+    transform: none;
+    clip-path: none;
+    scale: none;
+    transition: none;
+  }
+  .progress,
+  .par-name,
+  .par-figure,
+  .par-copy,
+  .float,
+  .float-slow,
+  .drift-fast {
+    animation: none;
+  }
+  .sweep::after {
+    transition: none;
+  }
+}

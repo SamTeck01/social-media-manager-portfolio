@@ -28,3 +28,13 @@ Dark by default (the client asked for black and gold), with a light-mode toggle.
 - Gold is for the primary action, one italic word per headline and result numbers. Never glows.
 - Only defensible numbers. Media sections (reels, voice) hide until real files exist.
 - Motion runs on transform/opacity/filter only; everything is off with reduced motion; content is visible without JS.
+
+## Motion layer (globals.css → "Motion layer")
+- **Split headlines:** `.split` h2s are wrapped into masked words by `Reveal.tsx`; words rise in a 70ms stagger.
+- **Hero parallax** (CSS scroll-driven, `@supports (animation-timeline)`): name sinks and fades, figure lifts and scales slightly, copy fades out.
+- **Floating phones:** `.float` / `.float-slow` move against the scroll via `view()` timelines, using `translate` so they stack on rotation.
+- **Client marquee:** 40s drift, paused on hover.
+- **Curtain:** About portrait opens from an inset clip-path.
+- **Progress line:** 2px gold scroll indicator at the top.
+- **Hover:** gold underline sweep on nav links, arrow nudge on secondary links, 0.97 press scale on buttons.
+- Browsers without scroll timelines get the static layout; reduced motion turns everything off.
