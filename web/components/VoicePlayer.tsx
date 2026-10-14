@@ -61,7 +61,7 @@ export default function VoicePlayer({ clips }: { clips: VoiceClip[] }) {
           <Icon name={playing ? "pause" : "play"} className="h-5 w-5" />
         </button>
         <div className="min-w-0 flex-1">
-          <p className="truncate font-serif text-2xl">{clip.title}</p>
+          <p className="font-serif text-xl leading-snug md:text-2xl">{clip.title}</p>
           <input
             type="range"
             min={0}
@@ -72,11 +72,11 @@ export default function VoicePlayer({ clips }: { clips: VoiceClip[] }) {
             onChange={(e) => {
               if (audio.current) audio.current.currentTime = Number(e.target.value);
             }}
-            className="mt-3 w-full accent-[var(--gilt-line)]"
+            className="mt-3 w-full accent-[var(--gold)]"
           />
           <div className="mt-1 flex justify-between text-xs text-ink-2">
             <span>{fmt(t)}</span>
-            <span>{fmt(d)}</span>
+            <span>{d ? fmt(d) : (clip.duration ?? "0:00")}</span>
           </div>
         </div>
       </div>

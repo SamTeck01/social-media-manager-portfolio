@@ -106,3 +106,13 @@ File: `assets/photos/miracle-portrait-full.webp` (1024×1536, full-length, stand
 - Client supplied five studio photos. In use (her pick): navy V-neck half portrait as the hero in both themes (background removed with rembg isnet), burgundy suit in About.
 - New hero copy from client: "Social Media Manager, Content Creator & Voice-Over Artist" / "Helping ambitious brands build a stronger digital presence through strategic content, creative storytelling and social media management." / "Working with brands across global markets."
 - Positioning: drop "Nigeria and the United States" from headline copy, because the client feels it limits her. Client cities stay on the case studies as facts.
+
+## Update 14/10/2026: voice samples received
+
+Drive folder "portfolio - social media" held 5 MP4s (4 unique; IMG_1274 was duplicated). All four are voice-over work branded "Mvoice" / @MVOICE_SOLUTIONS, not social media content. Audio extracted to `web/public/media/voice/` (mono MP3, loudness-normalised) and the "Hear her." section is now live:
+
+- Commercial: Zendago radio ad ("Ms. Hertty & Mvoice", two voices)
+- Narration: The Ant and the Dove (children's story); New Year Resolution (audio drama, Part 2)
+- Dubbing: graduation film, Pidgin version
+
+To confirm with client: that Mvoice is her brand, which voice is hers in the Zendago duet, and whether the animated story and Pidgin dub should also appear as video. Still missing: actual social media / UGC video files.

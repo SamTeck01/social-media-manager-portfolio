@@ -32,7 +32,7 @@ One person who handles strategy, content (scripting, editing, design, event vide
 - Taramoda Luxury: daily content creator; ~2K → 9K follower growth is self-reported and must not be published until approved.
 - ParentalPal, The Covenant Nation Maryland: names only.
 - One portrait: `web/public/media/portrait.webp` (1024×1536, cream background).
-- Absent: videos, voice samples, extra photos. Never fabricate metrics, logos or testimonials.
+- Absent: social/UGC videos. Voice samples received 14/10 (4 clips, "Mvoice"). Never fabricate metrics, logos or testimonials.
 
 ## Product Principles
 1. Proof over claims: every number shown is one she can defend.
