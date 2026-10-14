@@ -302,15 +302,10 @@ export default function Home() {
               See it <span className="italic text-gold">live</span>.
             </h2>
             <p className="reveal max-w-sm text-ink-2">
-              {videos.length ? "Short-form work from her clients' channels." : "The channels she runs, as they are today. Tap one to open it."}
+              The channels she runs, as they are today. Tap one to open it.
             </p>
           </div>
-          {videos.length ? (
-            <div className="mx-auto max-w-[92rem] px-5 md:px-10">
-              <Reels videos={videos} />
-            </div>
-          ) : (
-            <div className="drift-wrap overflow-hidden">
+          <div className="drift-wrap overflow-hidden">
               <ul className="drift flex w-max gap-5 pl-5 md:gap-8">
                 {[...wall, ...wall, ...wall, ...wall].map((s, i) => (
                   <li key={i} className="w-[58vw] max-w-[260px] shrink-0 sm:w-[260px]" aria-hidden={i >= wall.length}>
@@ -334,6 +329,11 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+            </div>
+          {videos.length > 0 && (
+            <div className="mx-auto mt-20 max-w-[92rem] px-5 md:mt-28 md:px-10">
+              <p className="reveal mb-8 max-w-md text-ink-2">Videos she voiced and produced. Tap to play with sound.</p>
+              <Reels videos={videos} />
             </div>
           )}
         </section>

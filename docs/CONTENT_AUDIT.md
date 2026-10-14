@@ -115,4 +115,4 @@ Drive folder "portfolio - social media" held 5 MP4s (4 unique; IMG_1274 was dupl
 - Narration: The Ant and the Dove (children's story); New Year Resolution (audio drama, Part 2)
 - Dubbing: graduation film, Pidgin version
 
-To confirm with client: that Mvoice is her brand, which voice is hers in the Zendago duet, and whether the animated story and Pidgin dub should also appear as video. Still missing: actual social media / UGC video files.
+To confirm with client: that Mvoice is her brand, which voice is hers in the Zendago duet, and (now shown as video in "See it live" too, per client). Still missing: actual social media / UGC video files.

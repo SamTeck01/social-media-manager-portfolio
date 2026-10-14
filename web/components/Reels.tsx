@@ -22,7 +22,8 @@ function ReelCard({ v }: { v: Video }) {
       <button
         onClick={toggle}
         aria-label={`${playing ? "Pause" : "Play"} ${v.title}`}
-        className="relative block aspect-[9/16] w-full overflow-hidden bg-wall-2"
+        className="relative block w-full overflow-hidden bg-wall-2"
+        style={{ aspectRatio: v.aspect ?? "9 / 16" }}
       >
         <video
           ref={ref}
@@ -84,9 +85,9 @@ export default function Reels({ videos }: { videos: Video[] }) {
           ))}
         </div>
       )}
-      <div className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:grid-cols-4 md:gap-6 md:overflow-visible md:px-0">
+      <div className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:grid-cols-4 md:items-start md:gap-6 md:overflow-visible md:px-0">
         {shown.map((v) => (
-          <div key={v.src} className="w-[68vw] shrink-0 snap-start sm:w-[42vw] md:w-auto">
+          <div key={v.src} className="w-[78vw] shrink-0 snap-start self-start sm:w-[42vw] md:w-auto">
             <ReelCard v={v} />
           </div>
         ))}

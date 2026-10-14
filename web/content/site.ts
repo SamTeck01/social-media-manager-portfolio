@@ -2,10 +2,11 @@
 // sections with no media hide themselves automatically.
 // Rule: only real, client-confirmed numbers. No placeholder metrics.
 
-export type Category = "Fashion & Retail" | "Health & Education" | "Faith & Events";
+export type Category = "Fashion & Retail" | "Health & Education" | "Faith & Events" | "Voice & Video";
 
 export type Video = {
-  src: string; // /media/videos/xxx.mp4 (vertical 9:16, H.264, ideally < 8MB)
+  src: string; // /media/videos/xxx.mp4 (H.264, ideally < 8MB)
+  aspect?: string; // CSS aspect-ratio, e.g. "16 / 9"; defaults to vertical 9 / 16
   poster: string; // /media/posters/xxx.webp
   title: string;
   client: string;
@@ -134,8 +135,13 @@ export const testimony = {
   org: "ADOSE Fashion",
 };
 
-// TODO(client): add her best 3–5 videos per project.
-export const videos: Video[] = [];
+// TODO(client): add her best 3–5 social/UGC videos per project.
+export const videos: Video[] = [
+  { src: "/media/videos/zendago-commercial.mp4", poster: "/media/posters/zendago-commercial.webp", aspect: "4 / 5", title: "Zendago, radio commercial", client: "Mvoice", category: "Voice & Video" },
+  { src: "/media/videos/ant-and-dove-story.mp4", poster: "/media/posters/ant-and-dove-story.webp", aspect: "16 / 9", title: "The Ant and the Dove, animated story", client: "Mvoice", category: "Voice & Video" },
+  { src: "/media/videos/pidgin-dub.mp4", poster: "/media/posters/pidgin-dub.webp", aspect: "4 / 5", title: "Graduation film, Pidgin dub", client: "Mvoice", category: "Voice & Video" },
+  { src: "/media/videos/new-year-resolution-drama.mp4", poster: "/media/posters/new-year-resolution-drama.webp", aspect: "1 / 1", title: "New Year Resolution, audio drama", client: "Mvoice", category: "Voice & Video" },
+];
 
 // TODO(client): add 2–3 voice samples. The Voice room stays hidden until then.
 export const voice: VoiceClip[] = [
