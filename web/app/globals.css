@@ -137,11 +137,11 @@ select {
 /* Scroll reveals. Content stays visible without JS. */
 .js .reveal {
   opacity: 0;
-  transform: translate3d(0, 28px, 0);
+  transform: translate3d(0, 14px, 0);
   transition:
-    opacity 1s var(--ease-out-expo),
-    transform 1s var(--ease-out-expo);
-  transition-delay: var(--d, 0ms);
+    opacity 0.5s ease-out,
+    transform 0.6s var(--ease-out-expo);
+  transition-delay: min(var(--d, 0ms), 160ms);
 }
 .js .reveal.is-in {
   opacity: 1;
@@ -204,8 +204,8 @@ select {
 }
 .js .split .w > span {
   transform: translate3d(0, 110%, 0);
-  transition: transform 1.1s var(--ease-out-expo);
-  transition-delay: calc(var(--i, 0) * 70ms);
+  transition: transform 0.7s var(--ease-out-expo);
+  transition-delay: min(calc(var(--i, 0) * 35ms), 200ms);
 }
 .js .split.is-in .w > span {
   transform: none;
@@ -213,11 +213,11 @@ select {
 
 /* Images open like a curtain. */
 .js .curtain {
-  clip-path: inset(14% 8% 14% 8% round 1rem);
-  scale: 1.08;
+  clip-path: inset(6% 4% 6% 4% round 1rem);
+  scale: 1.04;
   transition:
-    clip-path 1.4s var(--ease-out-expo),
-    scale 1.6s var(--ease-out-expo);
+    clip-path 0.8s var(--ease-out-expo),
+    scale 1s var(--ease-out-expo);
 }
 .js .curtain.is-in {
   clip-path: inset(0 0 0 0 round 1rem);
@@ -280,8 +280,7 @@ select {
   }
   @keyframes par-name {
     to {
-      translate: 0 22svh;
-      opacity: 0.15;
+      translate: 0 14svh;
     }
   }
   .par-figure {
@@ -301,18 +300,6 @@ select {
       scale: 1.04;
     }
   }
-  .par-copy {
-    animation: par-copy linear both;
-    animation-timeline: scroll(root);
-    animation-range: 0 50svh;
-  }
-  @keyframes par-copy {
-    to {
-      opacity: 0;
-      translate: 0 -30px;
-    }
-  }
-
   /* Phones float against the scroll. Uses `translate` so it stacks on their rotation. */
   .float {
     animation: float linear both;
@@ -351,7 +338,6 @@ select {
   .progress,
   .par-name,
   .par-figure,
-  .par-copy,
   .float,
   .float-slow,
   .drift-fast {

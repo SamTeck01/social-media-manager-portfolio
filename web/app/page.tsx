@@ -120,7 +120,7 @@ export default function Home() {
             style={{ animationDelay: "250ms" }}
           />
           <div className="absolute inset-x-0 bottom-0 hidden h-[24svh] bg-gradient-to-t from-wall via-wall/70 to-transparent md:block" aria-hidden />
-          <div className="par-copy relative -mt-32 mx-auto flex max-w-[92rem] flex-col gap-6 bg-gradient-to-t from-wall from-60% to-transparent px-5 pb-12 pt-28 md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:bg-none md:pt-0 md:pb-12 md:flex-row md:items-end md:justify-between md:px-10 md:pb-12">
+          <div className="relative -mt-32 mx-auto flex max-w-[92rem] flex-col gap-6 bg-gradient-to-t from-wall from-60% to-transparent px-5 pb-12 pt-28 md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:bg-none md:pt-0 md:pb-12 md:flex-row md:items-end md:justify-between md:px-10 md:pb-12">
             <div className="enter-rise max-w-[27rem] lg:max-w-[30rem]" style={{ animationDelay: "500ms" }}>
               <p className="max-w-[23rem] text-[13px] font-medium uppercase leading-relaxed tracking-[0.14em] text-gold">{site.disciplines}</p>
               <p className="mt-3 max-w-md text-[17px] leading-relaxed md:text-lg">{site.pitch}</p>
