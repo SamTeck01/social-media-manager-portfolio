@@ -139,7 +139,7 @@ export const videos: Video[] = [];
 
 // TODO(client): add 2–3 voice samples. The Voice room stays hidden until then.
 export const voice: VoiceClip[] = [
-  { src: "/media/voice/zendago-commercial.mp3", title: "Zendago, radio commercial", style: "Commercial", duration: "0:42" },
+  { src: "/media/voice/zendago-commercial.mp3", title: "Zendago, radio commercial", style: "Commercial", duration: "0:40" },
   { src: "/media/voice/ant-and-dove-story.mp3", title: "The Ant and the Dove, children's story", style: "Narration", duration: "1:49" },
   { src: "/media/voice/new-year-resolution-drama.mp3", title: "New Year Resolution, audio drama", style: "Narration", duration: "1:40" },
   { src: "/media/voice/pidgin-dub.mp3", title: "Graduation film, Pidgin dub", style: "Dubbing", duration: "0:43" },
