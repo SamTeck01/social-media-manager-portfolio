@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 //   GITHUB_TOKEN           fine-grained token, this repo only, Contents: read & write
 //   BLOB_READ_WRITE_TOKEN  set automatically when a Vercel Blob store is connected
 export const REPO = "samteck01/social-media-manager-portfolio";
-export const BRANCH = "claude/admiring-johnson-0qnmbu"; // the branch Vercel deploys
+export const BRANCH = "claude/magical-brahmagupta-lop2y7"; // Vercel's Production branch
 export const FILES = {
   videos: "web/content/videos.json",
   voice: "web/content/voice.json",
