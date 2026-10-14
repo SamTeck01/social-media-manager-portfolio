@@ -13,13 +13,17 @@ function ReelCard({ v, onOpen }: { v: Video; onOpen: () => void }) {
         className="relative block w-full overflow-hidden bg-wall-2"
         style={{ aspectRatio: v.aspect ?? "9 / 16" }}
       >
-        <img
-          src={v.poster}
-          alt=""
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
-        />
+        {v.poster ? (
+          <img
+            src={v.poster}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
+          />
+        ) : (
+          <video src={`${v.src}#t=0.5`} preload="metadata" muted playsInline className="h-full w-full object-cover" />
+        )}
         <span className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/50 via-transparent">
           <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-black/30 text-white transition-transform duration-300 group-hover:scale-110">
             <Icon name="play" className="h-4 w-4" />

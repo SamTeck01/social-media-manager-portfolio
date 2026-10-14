@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "title": "Zendago, radio commercial",
+      "style": "Commercial",
+      "src": "/media/voice/zendago-commercial.mp3",
+      "duration": "0:40"
+    },
+    {
+      "title": "The Ant and the Dove, children's story",
+      "style": "Narration",
+      "src": "/media/voice/ant-and-dove-story.mp3",
+      "duration": "1:49"
+    },
+    {
+      "title": "New Year Resolution, audio drama",
+      "style": "Narration",
+      "src": "/media/voice/new-year-resolution-drama.mp3",
+      "duration": "1:40"
+    },
+    {
+      "title": "Graduation film, Pidgin dub",
+      "style": "Dubbing",
+      "src": "/media/voice/pidgin-dub.mp3",
+      "duration": "0:43"
+    }
+  ]
+}

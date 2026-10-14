@@ -1,0 +1,74 @@
+# Sveltia CMS: the client edits her videos, voice clips and contact details at /admin.
+# Each Publish commits to the branch Vercel deploys, which triggers a redeploy.
+backend:
+  name: github
+  repo: samteck01/social-media-manager-portfolio
+  branch: claude/admiring-johnson-0qnmbu
+
+media_folder: web/public/media/uploads
+public_folder: /media/uploads
+
+collections:
+  - name: media
+    label: My work
+    files:
+      - name: videos
+        label: Videos
+        file: web/content/videos.json
+        fields:
+          - name: items
+            label: Videos
+            label_singular: Video
+            widget: list
+            summary: "{{fields.title}} · {{fields.category}}"
+            fields:
+              - { name: title, label: Title, widget: string, hint: "e.g. Zendago, radio commercial" }
+              - { name: client, label: Client or brand, widget: string }
+              - name: category
+                label: Category
+                widget: string
+                hint: "Each different category becomes a tab, e.g. Commercials, Storytelling, Dubbing, UGC, Social. Spell it the same way each time."
+              - { name: src, label: Video file, widget: file, hint: "MP4. Keep it under 25 MB (export at 720p)." }
+              - { name: poster, label: Cover image (optional), widget: image, required: false, hint: "If empty, the first frame is used." }
+              - name: aspect
+                label: Shape
+                widget: select
+                default: "9 / 16"
+                options:
+                  - { label: "Vertical (Reels, TikTok)", value: "9 / 16" }
+                  - { label: "Portrait (4:5)", value: "4 / 5" }
+                  - { label: "Square", value: "1 / 1" }
+                  - { label: "Wide (YouTube)", value: "16 / 9" }
+
+      - name: voice
+        label: Voice clips
+        file: web/content/voice.json
+        fields:
+          - name: items
+            label: Voice clips
+            label_singular: Voice clip
+            widget: list
+            summary: "{{fields.title}} · {{fields.style}}"
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: style, label: Style, widget: string, hint: "Each style becomes a tab, e.g. Commercial, Narration, Dubbing." }
+              - { name: src, label: Audio file, widget: file, hint: "MP3 preferred." }
+              - { name: duration, label: Length (optional), widget: string, required: false, hint: "e.g. 0:45" }
+
+  - name: settings
+    label: Contact details
+    files:
+      - name: contact
+        label: Contact details
+        file: web/content/contact.json
+        fields:
+          - { name: email, label: Public email, widget: string, required: false }
+          - { name: booking, label: Booking link (Calendly etc.), widget: string, required: false }
+          - name: socials
+            label: Social links
+            label_singular: Link
+            widget: list
+            required: false
+            fields:
+              - { name: label, label: Name, widget: string, hint: "e.g. Instagram" }
+              - { name: href, label: Link, widget: string }

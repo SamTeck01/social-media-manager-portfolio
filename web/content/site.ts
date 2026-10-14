@@ -1,23 +1,25 @@
-// All site copy and media live here. Drop files into /public/media and list them below;
-// sections with no media hide themselves automatically.
+import contact from "./contact.json";
+import videoData from "./videos.json";
+import voiceData from "./voice.json";
+
+// Videos, voice clips and contact details are edited by the client at /admin (Sveltia CMS),
+// which writes the JSON files imported above. Everything else lives here.
 // Rule: only real, client-confirmed numbers. No placeholder metrics.
 
-export type Category = "Fashion & Retail" | "Health & Education" | "Faith & Events" | "Commercials" | "Storytelling" | "Dubbing";
-
 export type Video = {
-  src: string; // /media/videos/xxx.mp4 (H.264, ideally < 8MB)
+  src: string; // /media/... mp4 (H.264, ideally < 25MB)
   aspect?: string; // CSS aspect-ratio, e.g. "16 / 9"; defaults to vertical 9 / 16
-  poster: string; // /media/posters/xxx.webp
+  poster?: string; // optional; the first frame is shown if missing
   title: string;
   client: string;
-  category: Category;
+  category: string; // free text; each distinct value becomes a tab
   metric?: string; // only if she gives the real number for this video
 };
 
 export type VoiceClip = {
   src: string; // /media/voice/xxx.mp3
   title: string;
-  style: "Commercial" | "Narration" | "Dubbing";
+  style: string; // each distinct value becomes a tab
   duration?: string;
 };
 
@@ -42,10 +44,9 @@ export const site = {
   pitch:
     "Helping ambitious brands build a stronger digital presence through strategic content, creative storytelling and social media management.",
   reach: "Working with brands across global markets.",
-  // TODO(client): confirm public email, booking link and her own handles.
-  email: "",
-  booking: "",
-  socials: [] as { label: string; href: string }[],
+  email: contact.email,
+  booking: contact.booking,
+  socials: contact.socials as { label: string; href: string }[],
   url: "https://example.com",
 };
 
@@ -135,21 +136,10 @@ export const testimony = {
   org: "ADOSE Fashion",
 };
 
-// TODO(client): add her best 3–5 social/UGC videos per project.
-export const videos: Video[] = [
-  { src: "/media/videos/zendago-commercial.mp4", poster: "/media/posters/zendago-commercial.webp", aspect: "4 / 5", title: "Zendago, radio commercial", client: "Mvoice", category: "Commercials" },
-  { src: "/media/videos/ant-and-dove-story.mp4", poster: "/media/posters/ant-and-dove-story.webp", aspect: "16 / 9", title: "The Ant and the Dove, animated story", client: "Mvoice", category: "Storytelling" },
-  { src: "/media/videos/pidgin-dub.mp4", poster: "/media/posters/pidgin-dub.webp", aspect: "4 / 5", title: "Graduation film, Pidgin dub", client: "Mvoice", category: "Dubbing" },
-  { src: "/media/videos/new-year-resolution-drama.mp4", poster: "/media/posters/new-year-resolution-drama.webp", aspect: "1 / 1", title: "New Year Resolution, audio drama", client: "Mvoice", category: "Storytelling" },
-];
+export const videos: Video[] = videoData.items;
 
 // TODO(client): add 2–3 voice samples. The Voice room stays hidden until then.
-export const voice: VoiceClip[] = [
-  { src: "/media/voice/zendago-commercial.mp3", title: "Zendago, radio commercial", style: "Commercial", duration: "0:40" },
-  { src: "/media/voice/ant-and-dove-story.mp3", title: "The Ant and the Dove, children's story", style: "Narration", duration: "1:49" },
-  { src: "/media/voice/new-year-resolution-drama.mp3", title: "New Year Resolution, audio drama", style: "Narration", duration: "1:40" },
-  { src: "/media/voice/pidgin-dub.mp3", title: "Graduation film, Pidgin dub", style: "Dubbing", duration: "0:43" },
-];
+export const voice: VoiceClip[] = voiceData.items;
 
 export const rooms = [
   {
