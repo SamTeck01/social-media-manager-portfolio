@@ -1,28 +1,33 @@
-# Admin dashboard: adding your own work
+# Admin dashboard ("Your studio")
 
-Go to **yoursite.com/admin**.
+She goes to **yoursite.com/admin** and logs in with a password. No GitHub account needed.
 
-## One-time setup (done by Sam)
-1. She needs a free GitHub account. Add it as a collaborator on `samteck01/social-media-manager-portfolio` (Settings → Collaborators, Write access).
-2. On her account, create a token: GitHub → Settings → Developer settings → Fine-grained tokens → New token. Repository: this repo only. Permission: **Contents: Read and write**. Copy the token.
-3. At /admin, choose **Sign In Using Access Token** and paste it. The browser remembers it.
+## One-time setup in Vercel (Sam)
+Project → **Settings → Environment Variables**, add for Production:
 
-("Sign In with GitHub" needs an extra OAuth helper, for example the free sveltia-cms-auth Cloudflare Worker. Optional; the token is enough.)
+| Name | Value |
+|---|---|
+| `ADMIN_PASSWORD` | the password you give her |
+| `ADMIN_SECRET` | any long random string (e.g. run `openssl rand -hex 32`) |
+| `GITHUB_TOKEN` | GitHub → Settings → Developer settings → Fine-grained tokens. Repository: `social-media-manager-portfolio` only. Permission: **Contents: Read and write**. |
 
-## Adding a video
-1. **My work → Videos → Add Video**.
-2. Title, client, category, video file (MP4, under 25 MB; export at 720p), shape. A cover image is optional.
-3. **Save**. The site updates in about 2 minutes.
+Then **Storage → Create → Blob**, connect it to the project. This adds `BLOB_READ_WRITE_TOKEN` automatically. Free tier: 1 GB storage.
 
-Categories become the tabs on the site. Spell them the same each time (e.g. "UGC", not "ugc" one time and "UGC" the next).
+Redeploy once after adding these.
 
-## Adding a voice clip
-**My work → Voice clips → Add**: title, style (becomes a tab), MP3 file.
+Also check **Settings → Build & Output**: Output Directory must be the default (not `out`). The site is no longer a static export because the dashboard needs server routes.
 
-## Contact details
-**Contact details**: public email, booking link, social links. These appear on the contact section.
+## How it works
+- Login is checked on the server; a signed cookie keeps her logged in for 7 days.
+- Uploads go straight from her browser to Vercel Blob (no size issue up to 500 MB).
+- **Publish changes** commits the updated list (`web/content/*.json`) to `claude/admiring-johnson-0qnmbu` using the server's GitHub token. Vercel redeploys; the site is live in about 2 minutes.
+- Nothing secret is in the page. Repo and branch are set in `web/lib/admin.ts`.
 
-## Notes
-- Each save commits to `claude/admiring-johnson-0qnmbu`, the branch Vercel deploys.
-- Big phone videos (over ~50 MB) will fail. Compress first (CapCut export 720p, or handbrake.fr).
-- Only add numbers you can prove. No made-up metrics or testimonials.
+## For her
+1. **Videos → + Add video.** Title, client, category, choose the video (shape is detected automatically), optional cover image. Click **Done**.
+2. Use ↑ ↓ to reorder, **Edit**, **Delete**.
+3. Click **Publish changes**. Nothing goes live until she does.
+- Categories become tabs on the site. Pick existing ones from the suggestions so spelling stays the same.
+- **Voice clips** work the same way (length is detected automatically).
+- **Contact details**: email, booking link, social links.
+- Only add numbers she can prove.
