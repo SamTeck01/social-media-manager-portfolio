@@ -23,7 +23,9 @@ function warm(v: Video) {
   }).catch(() => {});
 }
 
-function ReelCard({ v, onOpen }: { v: Video; onOpen: () => void }) {
+const TILT = [-3, 2.5, -2, 3]; // same slant as the case-study phones
+
+function ReelCard({ v, i, onOpen }: { v: Video; i: number; onOpen: () => void }) {
   return (
     <figure className="group">
       <button
@@ -32,8 +34,8 @@ function ReelCard({ v, onOpen }: { v: Video; onOpen: () => void }) {
         onTouchStart={() => warm(v)}
         onFocus={() => warm(v)}
         aria-label={`Play ${v.title}`}
-        className="relative block w-full overflow-hidden bg-wall-2"
-        style={{ aspectRatio: v.aspect ?? "9 / 16" }}
+        className="relative block w-full overflow-hidden rounded-[1.6rem] border-[6px] border-wall-3 bg-wall-2 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.55)] transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:rotate-0 group-active:rotate-0"
+        style={{ aspectRatio: v.aspect ?? "9 / 16", rotate: `${TILT[i % TILT.length]}deg` }}
       >
         {v.poster ? (
           <img
@@ -58,7 +60,7 @@ function ReelCard({ v, onOpen }: { v: Video; onOpen: () => void }) {
           <span className="absolute left-3 top-3 bg-wall/85 px-2.5 py-1 text-[11px] text-gilt">{v.metric}</span>
         )}
       </button>
-      <figcaption className="mt-3 text-sm">
+      <figcaption className="mt-5 text-sm">
         <span className="text-ink">{v.title}</span>
         <span className="block text-ink-2">{v.client}</span>
       </figcaption>
@@ -209,10 +211,10 @@ export default function Reels({ videos }: { videos: Video[] }) {
           ))}
         </div>
       )}
-      <div className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:grid-cols-4 md:items-start md:gap-6 md:overflow-visible md:px-0">
-        {shown.map((v) => (
+      <div className="-mx-5 flex snap-x snap-mandatory gap-7 overflow-x-auto px-7 pb-6 pt-4 md:mx-0 md:grid md:grid-cols-4 md:items-start md:gap-x-10 md:gap-y-16 md:overflow-visible md:px-0">
+        {shown.map((v, i) => (
           <div key={v.src} className="w-[78vw] shrink-0 snap-start self-start sm:w-[42vw] md:w-auto">
-            <ReelCard v={v} onOpen={() => setOpen(v)} />
+            <ReelCard v={v} i={i} onOpen={() => setOpen(v)} />
           </div>
         ))}
       </div>
