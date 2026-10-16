@@ -6,7 +6,7 @@ import Reels from "@/components/Reels";
 import { blur, srcSet } from "@/lib/img";
 import VoicePlayer from "@/components/VoicePlayer";
 import ContactForm from "@/components/ContactForm";
-import { clients, note, rooms, site, testimony, videos, voice, works, type Screen } from "@/content/site";
+import { career, clients, note, rooms, site, testimony, videos, voice, works, type Screen } from "@/content/site";
 
 const [adose, ffd, taramoda] = works;
 
@@ -129,7 +129,7 @@ export default function Home() {
               <p className="max-w-[23rem] text-[13px] font-medium uppercase leading-relaxed tracking-[0.14em] text-gold">{site.disciplines}</p>
               <p className="mt-3 max-w-md text-[17px] leading-relaxed md:text-lg">{site.pitch}</p>
               <p className="mt-2 text-sm text-ink-2">{site.reach}</p>
-              <div className="mt-6 flex items-center gap-6">
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
                 <a
                   href="#contact"
                   className="rounded-full bg-gold px-7 py-3.5 text-sm font-medium text-wall transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-[0.97]"
@@ -138,6 +138,9 @@ export default function Home() {
                 </a>
                 <a href="#work" className="nudge inline-flex items-center gap-2 text-sm text-ink-2 transition-colors hover:text-ink">
                   See the results <Icon name="arrowDown" />
+                </a>
+                <a href={site.cv} download className="inline-flex items-center gap-2 text-sm text-ink-2 underline decoration-gold/60 underline-offset-4 transition-colors hover:text-ink">
+                  Download CV <Icon name="download" />
                 </a>
               </div>
             </div>
@@ -407,6 +410,42 @@ export default function Home() {
               ))}
               <p className="display reveal mt-8 text-3xl italic text-gold">{site.fullName}</p>
             </div>
+            <div className="md:col-span-12">
+              <div className="reveal mt-8 flex flex-wrap items-baseline justify-between gap-4 border-b border-hair pb-4 md:mt-16">
+                <h3 className="display text-3xl md:text-4xl">Experience</h3>
+                <a href={site.cv} download className="inline-flex items-center gap-2 text-sm text-gilt hover:text-ink">
+                  Download full CV (PDF) <Icon name="download" />
+                </a>
+              </div>
+              <ul>
+                {career.roles.map((r) => (
+                  <li key={r.org} className="reveal grid gap-1 border-b border-hair py-5 md:grid-cols-12 md:gap-6">
+                    <p className="text-sm text-ink-2 md:col-span-2">{r.when}</p>
+                    <p className="md:col-span-4">
+                      <span className="text-ink">{r.org}</span>
+                      <span className="block text-sm text-ink-2">{r.place}</span>
+                    </p>
+                    <p className="text-sm text-ink-2 md:col-span-6">
+                      <span className="text-ink">{r.role}.</span> {r.line}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+              <dl className="reveal mt-10 grid gap-8 text-sm md:grid-cols-3">
+                <div>
+                  <dt className="text-gilt">Education</dt>
+                  <dd className="mt-2 text-ink-2">{career.education}</dd>
+                </div>
+                <div>
+                  <dt className="text-gilt">Certifications</dt>
+                  {career.certifications.map((c) => <dd key={c} className="mt-2 text-ink-2">{c}</dd>)}
+                </div>
+                <div>
+                  <dt className="text-gilt">Tools</dt>
+                  <dd className="mt-2 text-ink-2">{career.tools.join(" · ")}</dd>
+                </div>
+              </dl>
+            </div>
           </div>
         </section>
 
@@ -430,6 +469,9 @@ export default function Home() {
                   Book a call <Icon name="arrowUpRight" className="h-3 w-3" />
                 </a>
               )}
+              <a href={site.cv} download className="reveal mt-5 flex w-fit items-center gap-2 text-ink-2 hover:text-ink">
+                Download CV (PDF) <Icon name="download" />
+              </a>
             </div>
             <div className="reveal md:col-span-5 md:col-start-8 md:self-end">
               <ContactForm email={site.email} />

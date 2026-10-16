@@ -48,11 +48,16 @@ export const site = {
   email: contact.email,
   booking: contact.booking,
   socials: contact.socials as { label: string; href: string }[],
-  url: "https://example.com",
+  url: "https://miracle-akhimien.vercel.app",
+  cv: "/miracle-akhimien-cv.pdf",
 };
 
 export const clients = [
   { name: "The Fly Foot Doctor", place: "Houston" },
+  { name: "DeNiel Foot & Ankle Center", place: "Houston" },
+  { name: "Hadassah Bridals", place: "UK market" },
+  { name: "PharmAbbey", place: "Lagos" },
+  { name: "4ruit Naturel", place: "Lagos" },
   { name: "ADOSE Fashion", place: "Abuja" },
   { name: "Taramoda Luxury", place: "Nigeria" },
   { name: "ParentalPal", place: "Nigeria" },
@@ -163,6 +168,21 @@ export const commission = [
   { title: "Make", body: "Scripts, shoots, edits, design and voice, from one person." },
   { title: "Grow", body: "Publishing, community and monthly results you can read." },
 ];
+
+// From her CV (October 2026).
+export const career = {
+  roles: [
+    { org: "PharmAbbey", place: "Lagos", role: "Social Media Manager", when: "2026 – now", line: "TikTok grown from ~100 to 3,300+ followers and 22,000+ likes." },
+    { org: "DeNiel Foot & Ankle Center", place: "Houston, USA · remote", role: "Social Media Manager", when: "2026 – now", line: "Instagram and TikTok for a foot and ankle clinic." },
+    { org: "4ruit Naturel", place: "Lagos", role: "Social Media Manager", when: "2025 – now", line: "Reels, carousels and campaigns driving Instagram and WhatsApp enquiries." },
+    { org: "Hadassah Bridals", place: "Lagos · UK market", role: "Social Media Manager", when: "2024 – 2025", line: "50%+ Instagram follower growth in a year; ~30% of consultations came from Instagram DMs." },
+    { org: "The Fly Foot Doctor", place: "Houston, USA · remote", role: "Video editor, scriptwriter, designer", when: "Ongoing", line: "800+ course purchases; a 20,000+ subscriber community." },
+    { org: "ADOSE Fashion", place: "Abuja · remote", role: "Social Media Manager", when: "2021 – now", line: "0 → 9,935 Instagram followers; 1.47M views and 94K accounts reached." },
+  ],
+  education: "BSc Economics & Statistics, Ambrose Alli University, 2021",
+  certifications: ["Google Social Media Marketing Certificate, 2023", "Social Media Made Easy: Content Strategy & Creation, 2025"],
+  tools: ["Meta Business Suite", "Meta Ads Manager", "Hootsuite", "CapCut", "Adobe Premiere Pro", "Canva"],
+};
 
 export const note = {
   heading: "One creative, the whole story.",

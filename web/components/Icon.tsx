@@ -2,6 +2,7 @@
 const paths = {
   arrowUpRight: "M7 17 17 7M8 7h9v9",
   arrowDown: "M12 5v14M6 13l6 6 6-6",
+  download: "M12 4v11M7 10l5 5 5-5M5 20h14",
   play: "M8 5.5v13l11-6.5z",
   pause: "M8 5v14M16 5v14",
   close: "M6 6l12 12M18 6L6 18",
