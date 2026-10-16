@@ -116,3 +116,12 @@ Drive folder "portfolio - social media" held 5 MP4s (4 unique; IMG_1274 was dupl
 - Dubbing: graduation film, Pidgin version
 
 To confirm with client: that Mvoice is her brand, which voice is hers in the Zendago duet, and (now shown as video in "See it live" too, per client). Still missing: actual social media / UGC video files.
+
+## Update 16/10/2026: 10 social/content videos received
+
+Same Drive folder. Added to "See it live" (vertical, compressed to 720p):
+- Events: The Covenant Nation Maryland Marriage Enrichment getaway; Sip and Paint night; Sip and Paint moments; fifth birthday shoot (Mvoice Solution Limited)
+- Brand content: Utol kids cook-off; iSenseville Consult brand video; PrintHive Rain Conference branding
+- Fashion & lifestyle: traditional attire reel (Mvoice Solution Limited); kaftan styling reel; Ankara dress reel
+
+"MSL" in the videos = Mvoice Solution Limited, her company. Clients were read from logos in the videos; titles are descriptive. To confirm with her: client names for the Sip and Paint and the two fashion reels, and her exact role on each (shot, edited, managed).

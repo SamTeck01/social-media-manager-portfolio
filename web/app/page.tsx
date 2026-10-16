@@ -332,7 +332,7 @@ export default function Home() {
             </div>
           {videos.length > 0 && (
             <div className="mx-auto mt-20 max-w-[92rem] px-5 md:mt-28 md:px-10">
-              <p className="reveal mb-8 max-w-md text-ink-2">Video work, sorted by type. Tap one to watch it with sound.</p>
+              <p className="reveal mb-8 max-w-md text-ink-2">Her work, sorted by type. Tap any video to watch it with sound.</p>
               <Reels videos={videos} />
             </div>
           )}

@@ -1,6 +1,86 @@
 {
   "items": [
     {
+      "title": "Marriage Enrichment getaway",
+      "client": "The Covenant Nation Maryland",
+      "category": "Events",
+      "src": "/media/videos/covenant-marriage-getaway.mp4",
+      "poster": "/media/posters/covenant-marriage-getaway.webp",
+      "aspect": "9 / 16"
+    },
+    {
+      "title": "Kids cook-off with Utol",
+      "client": "Utol",
+      "category": "Brand content",
+      "src": "/media/videos/utol-kids-cook-off.mp4",
+      "poster": "/media/posters/utol-kids-cook-off.webp",
+      "aspect": "9 / 16"
+    },
+    {
+      "title": "Brand video",
+      "client": "iSenseville Consult",
+      "category": "Brand content",
+      "src": "/media/videos/isenseville-brand-video.mp4",
+      "poster": "/media/posters/isenseville-brand-video.webp",
+      "aspect": "9 / 16"
+    },
+    {
+      "title": "Rain Conference branding",
+      "client": "PrintHive",
+      "category": "Brand content",
+      "src": "/media/videos/printhive-rain-conference.mp4",
+      "poster": "/media/posters/printhive-rain-conference.webp",
+      "aspect": "9 / 16"
+    },
+    {
+      "title": "Traditional attire reel",
+      "client": "Mvoice Solution Limited",
+      "category": "Fashion & lifestyle",
+      "src": "/media/videos/traditional-attire-reel.mp4",
+      "poster": "/media/posters/traditional-attire-reel.webp",
+      "aspect": "9 / 16"
+    },
+    {
+      "title": "Sip and Paint night",
+      "client": "Event coverage",
+      "category": "Events",
+      "src": "/media/videos/sip-and-paint-night.mp4",
+      "poster": "/media/posters/sip-and-paint-night.webp",
+      "aspect": "9 / 16"
+    },
+    {
+      "title": "Kaftan styling reel",
+      "client": "Social content",
+      "category": "Fashion & lifestyle",
+      "src": "/media/videos/pink-kaftan-reel.mp4",
+      "poster": "/media/posters/pink-kaftan-reel.webp",
+      "aspect": "9 / 16"
+    },
+    {
+      "title": "Fifth birthday shoot",
+      "client": "Mvoice Solution Limited",
+      "category": "Events",
+      "src": "/media/videos/birthday-shoot.mp4",
+      "poster": "/media/posters/birthday-shoot.webp",
+      "aspect": "9 / 16"
+    },
+    {
+      "title": "Ankara dress reel",
+      "client": "Social content",
+      "category": "Fashion & lifestyle",
+      "src": "/media/videos/ankara-dress-reel.mp4",
+      "poster": "/media/posters/ankara-dress-reel.webp",
+      "aspect": "9 / 16"
+    },
+    {
+      "title": "Sip and Paint moments",
+      "client": "Event coverage",
+      "category": "Events",
+      "src": "/media/videos/sip-and-paint-moments.mp4",
+      "poster": "/media/posters/sip-and-paint-moments.webp",
+      "aspect": "9 / 16"
+    },
+    {
       "title": "Zendago, radio commercial",
       "client": "Mvoice",
       "category": "Commercials",
