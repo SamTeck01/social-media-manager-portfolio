@@ -3,7 +3,7 @@
 import { upload } from "@vercel/blob/client";
 import { useCallback, useEffect, useState } from "react";
 
-type Video = { title: string; client: string; category: string; src: string; poster?: string; aspect?: string };
+type Video = { title: string; client: string; category: string; src: string; hls?: string; poster?: string; aspect?: string };
 type Clip = { title: string; style: string; src: string; duration?: string };
 type Contact = { email: string; booking: string; socials: { label: string; href: string }[] };
 type Tab = "videos" | "voice" | "contact";
@@ -157,7 +157,7 @@ function VideoForm({ init, cats, onSave, onCancel }: { init: Video; cats: string
           const { w, h } = await readMedia(f, "video");
           if (w && h) set({ aspect: SHAPES.reduce((a, s) => (Math.abs(s.r - w / h) < Math.abs(a.r - w / h) ? s : a)).value });
         }}
-        onDone={(src) => set({ src })}
+        onDone={(src) => set({ src, hls: undefined })}
       />
       <label className="block">
         <span className="mb-1.5 block text-sm text-ink-2">Shape (set automatically from the video)</span>

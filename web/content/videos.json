@@ -6,7 +6,8 @@
       "category": "Events",
       "src": "/media/videos/covenant-marriage-getaway.mp4",
       "poster": "/media/posters/covenant-marriage-getaway.webp",
-      "aspect": "9 / 16"
+      "aspect": "9 / 16",
+      "hls": "/media/hls/covenant-marriage-getaway/master.m3u8"
     },
     {
       "title": "Kids cook-off with Utol",
@@ -14,7 +15,8 @@
       "category": "Brand content",
       "src": "/media/videos/utol-kids-cook-off.mp4",
       "poster": "/media/posters/utol-kids-cook-off.webp",
-      "aspect": "9 / 16"
+      "aspect": "9 / 16",
+      "hls": "/media/hls/utol-kids-cook-off/master.m3u8"
     },
     {
       "title": "Brand video",
@@ -22,7 +24,8 @@
       "category": "Brand content",
       "src": "/media/videos/isenseville-brand-video.mp4",
       "poster": "/media/posters/isenseville-brand-video.webp",
-      "aspect": "9 / 16"
+      "aspect": "9 / 16",
+      "hls": "/media/hls/isenseville-brand-video/master.m3u8"
     },
     {
       "title": "Rain Conference branding",
@@ -30,7 +33,8 @@
       "category": "Brand content",
       "src": "/media/videos/printhive-rain-conference.mp4",
       "poster": "/media/posters/printhive-rain-conference.webp",
-      "aspect": "9 / 16"
+      "aspect": "9 / 16",
+      "hls": "/media/hls/printhive-rain-conference/master.m3u8"
     },
     {
       "title": "Traditional attire reel",
@@ -38,7 +42,8 @@
       "category": "Fashion & lifestyle",
       "src": "/media/videos/traditional-attire-reel.mp4",
       "poster": "/media/posters/traditional-attire-reel.webp",
-      "aspect": "9 / 16"
+      "aspect": "9 / 16",
+      "hls": "/media/hls/traditional-attire-reel/master.m3u8"
     },
     {
       "title": "Sip and Paint night",
@@ -46,7 +51,8 @@
       "category": "Events",
       "src": "/media/videos/sip-and-paint-night.mp4",
       "poster": "/media/posters/sip-and-paint-night.webp",
-      "aspect": "9 / 16"
+      "aspect": "9 / 16",
+      "hls": "/media/hls/sip-and-paint-night/master.m3u8"
     },
     {
       "title": "Kaftan styling reel",
@@ -54,7 +60,8 @@
       "category": "Fashion & lifestyle",
       "src": "/media/videos/pink-kaftan-reel.mp4",
       "poster": "/media/posters/pink-kaftan-reel.webp",
-      "aspect": "9 / 16"
+      "aspect": "9 / 16",
+      "hls": "/media/hls/pink-kaftan-reel/master.m3u8"
     },
     {
       "title": "Fifth birthday shoot",
@@ -62,7 +69,8 @@
       "category": "Events",
       "src": "/media/videos/birthday-shoot.mp4",
       "poster": "/media/posters/birthday-shoot.webp",
-      "aspect": "9 / 16"
+      "aspect": "9 / 16",
+      "hls": "/media/hls/birthday-shoot/master.m3u8"
     },
     {
       "title": "Ankara dress reel",
@@ -70,7 +78,8 @@
       "category": "Fashion & lifestyle",
       "src": "/media/videos/ankara-dress-reel.mp4",
       "poster": "/media/posters/ankara-dress-reel.webp",
-      "aspect": "9 / 16"
+      "aspect": "9 / 16",
+      "hls": "/media/hls/ankara-dress-reel/master.m3u8"
     },
     {
       "title": "Sip and Paint moments",
@@ -78,7 +87,8 @@
       "category": "Events",
       "src": "/media/videos/sip-and-paint-moments.mp4",
       "poster": "/media/posters/sip-and-paint-moments.webp",
-      "aspect": "9 / 16"
+      "aspect": "9 / 16",
+      "hls": "/media/hls/sip-and-paint-moments/master.m3u8"
     },
     {
       "title": "Zendago, radio commercial",
@@ -86,7 +96,8 @@
       "category": "Commercials",
       "src": "/media/videos/zendago-commercial.mp4",
       "poster": "/media/posters/zendago-commercial.webp",
-      "aspect": "4 / 5"
+      "aspect": "4 / 5",
+      "hls": "/media/hls/zendago-commercial/master.m3u8"
     },
     {
       "title": "The Ant and the Dove, animated story",
@@ -94,7 +105,8 @@
       "category": "Storytelling",
       "src": "/media/videos/ant-and-dove-story.mp4",
       "poster": "/media/posters/ant-and-dove-story.webp",
-      "aspect": "16 / 9"
+      "aspect": "16 / 9",
+      "hls": "/media/hls/ant-and-dove-story/master.m3u8"
     },
     {
       "title": "Graduation film, Pidgin dub",
@@ -102,7 +114,8 @@
       "category": "Dubbing",
       "src": "/media/videos/pidgin-dub.mp4",
       "poster": "/media/posters/pidgin-dub.webp",
-      "aspect": "4 / 5"
+      "aspect": "4 / 5",
+      "hls": "/media/hls/pidgin-dub/master.m3u8"
     },
     {
       "title": "New Year Resolution, audio drama",
@@ -110,7 +123,8 @@
       "category": "Storytelling",
       "src": "/media/videos/new-year-resolution-drama.mp4",
       "poster": "/media/posters/new-year-resolution-drama.webp",
-      "aspect": "1 / 1"
+      "aspect": "1 / 1",
+      "hls": "/media/hls/new-year-resolution-drama/master.m3u8"
     }
   ]
 }

@@ -31,3 +31,6 @@ Also check **Settings → Build & Output**: Output Directory must be the default
 - **Voice clips** work the same way (length is detected automatically).
 - **Contact details**: email, booking link, social links.
 - Only add numbers she can prove.
+
+## Video streaming
+The 14 videos added by Sam play as adaptive streams (HLS, `web/public/media/hls/`): they start at a light quality and climb to full quality (up to the original 1080p) as the connection allows. Videos she uploads through the dashboard play as a normal MP4 from Vercel Blob; send long ones to Sam to convert into a stream (`hls.sh` in the session notes).

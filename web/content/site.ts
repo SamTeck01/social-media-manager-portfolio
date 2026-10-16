@@ -7,7 +7,8 @@ import voiceData from "./voice.json";
 // Rule: only real, client-confirmed numbers. No placeholder metrics.
 
 export type Video = {
-  src: string; // /media/... mp4 (H.264, ideally < 25MB)
+  src: string; // /media/... mp4 (H.264, ideally < 25MB); fallback when there is no stream
+  hls?: string; // adaptive stream (master.m3u8): starts fast, climbs to full quality
   aspect?: string; // CSS aspect-ratio, e.g. "16 / 9"; defaults to vertical 9 / 16
   poster?: string; // optional; the first frame is shown if missing
   title: string;
