@@ -3,6 +3,7 @@ import Reveal from "@/components/Reveal";
 import CountUp from "@/components/CountUp";
 import Icon from "@/components/Icon";
 import Reels from "@/components/Reels";
+import { blur, srcSet } from "@/lib/img";
 import VoicePlayer from "@/components/VoicePlayer";
 import ContactForm from "@/components/ContactForm";
 import { clients, note, rooms, site, testimony, videos, voice, works, type Screen } from "@/content/site";
@@ -16,6 +17,9 @@ function Phone({ s, className = "", eager = false }: { s: Screen; className?: st
     >
       <img
         src={s.src}
+        srcSet={srcSet(s.src)}
+        sizes="(min-width: 768px) 300px, 64vw"
+        style={blur(s.src)}
         alt={s.alt}
         width={591}
         height={1210}
@@ -313,6 +317,9 @@ export default function Home() {
                       <div className="aspect-[9/16] overflow-hidden rounded-2xl bg-wall-2">
                         <img
                           src={s.src}
+                          srcSet={srcSet(s.src)}
+                          sizes="260px"
+                          style={blur(s.src)}
                           alt={i < wall.length ? s.alt : ""}
                           width={591}
                           height={1210}
@@ -385,6 +392,7 @@ export default function Home() {
                 width={1024}
                 height={1536}
                 alt={`${site.fullName} in a burgundy suit, smiling`}
+                style={blur("/media/about-suit-853.webp")}
                 loading="lazy"
                 decoding="async"
                 className="curtain aspect-[4/5] w-full rounded-2xl object-cover object-[50%_20%]"

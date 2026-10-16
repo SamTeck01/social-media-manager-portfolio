@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Icon from "@/components/Icon";
+import { blur, srcSet } from "@/lib/img";
 import type { Video } from "@/content/site";
 
 type HlsCtor = typeof import("hls.js").default;
@@ -37,6 +38,9 @@ function ReelCard({ v, onOpen }: { v: Video; onOpen: () => void }) {
         {v.poster ? (
           <img
             src={v.poster}
+            srcSet={srcSet(v.poster)}
+            sizes="(min-width: 768px) 25vw, 78vw"
+            style={blur(v.poster)}
             alt=""
             loading="lazy"
             decoding="async"
