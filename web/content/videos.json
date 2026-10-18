@@ -1,31 +1,31 @@
 {
   "items": [
     {
-      "title": "Brand video",
-      "client": "iSenseville Consult",
+      "title": "Doctor's talking-head video",
+      "client": "DeNiel Foot & Ankle Center, Houston",
       "category": "Brand content",
-      "src": "/media/videos/isenseville-brand-video.mp4",
-      "poster": "/media/posters/isenseville-brand-video.webp",
-      "aspect": "9 / 16",
-      "hls": "/media/hls/isenseville-brand-video/master.m3u8"
-    },
-    {
-      "title": "The Ant and the Dove, animated story",
-      "client": "Mvoice",
-      "category": "Storytelling",
-      "src": "/media/videos/ant-and-dove-story.mp4",
-      "poster": "/media/posters/ant-and-dove-story.webp",
+      "src": "/media/videos/deniel-doctor-talk.mp4",
+      "poster": "/media/posters/deniel-doctor-talk.webp",
       "aspect": "16 / 9",
-      "hls": "/media/hls/ant-and-dove-story/master.m3u8"
+      "hls": "/media/hls/deniel-doctor-talk/master.m3u8"
     },
     {
-      "title": "Kaftan and handbag styling reel",
-      "client": "Social content",
-      "category": "Fashion & lifestyle",
-      "src": "/media/videos/pink-kaftan-reel.mp4",
-      "poster": "/media/posters/pink-kaftan-reel.webp",
+      "title": "AI-generated boutique ad",
+      "client": "Mvoice Solution Limited",
+      "category": "Brand content",
+      "src": "/media/videos/ai-boutique-drama.mp4",
+      "poster": "/media/posters/ai-boutique-drama.webp",
       "aspect": "9 / 16",
-      "hls": "/media/hls/pink-kaftan-reel/master.m3u8"
+      "hls": "/media/hls/ai-boutique-drama/master.m3u8"
+    },
+    {
+      "title": "Handbag styling reel",
+      "client": "Taramoda Boutique",
+      "category": "Fashion & lifestyle",
+      "src": "/media/videos/taramoda-handbag-reel.mp4",
+      "poster": "/media/posters/taramoda-handbag-reel.webp",
+      "aspect": "9 / 16",
+      "hls": "/media/hls/taramoda-handbag-reel/master.m3u8"
     },
     {
       "title": "Marriage Enrichment getaway",
@@ -44,6 +44,15 @@
       "poster": "/media/posters/utol-kids-cook-off.webp",
       "aspect": "9 / 16",
       "hls": "/media/hls/utol-kids-cook-off/master.m3u8"
+    },
+    {
+      "title": "Brand video",
+      "client": "iSenseville Consult",
+      "category": "Brand content",
+      "src": "/media/videos/isenseville-brand-video.mp4",
+      "poster": "/media/posters/isenseville-brand-video.webp",
+      "aspect": "9 / 16",
+      "hls": "/media/hls/isenseville-brand-video/master.m3u8"
     },
     {
       "title": "Rain Conference branding",
@@ -71,6 +80,15 @@
       "poster": "/media/posters/sip-and-paint-night.webp",
       "aspect": "9 / 16",
       "hls": "/media/hls/sip-and-paint-night/master.m3u8"
+    },
+    {
+      "title": "Kaftan styling reel",
+      "client": "Social content",
+      "category": "Fashion & lifestyle",
+      "src": "/media/videos/pink-kaftan-reel.mp4",
+      "poster": "/media/posters/pink-kaftan-reel.webp",
+      "aspect": "9 / 16",
+      "hls": "/media/hls/pink-kaftan-reel/master.m3u8"
     },
     {
       "title": "Fifth birthday shoot",
@@ -107,6 +125,15 @@
       "poster": "/media/posters/zendago-commercial.webp",
       "aspect": "4 / 5",
       "hls": "/media/hls/zendago-commercial/master.m3u8"
+    },
+    {
+      "title": "The Ant and the Dove, animated story",
+      "client": "Mvoice",
+      "category": "Storytelling",
+      "src": "/media/videos/ant-and-dove-story.mp4",
+      "poster": "/media/posters/ant-and-dove-story.webp",
+      "aspect": "16 / 9",
+      "hls": "/media/hls/ant-and-dove-story/master.m3u8"
     },
     {
       "title": "Graduation film, Pidgin dub",

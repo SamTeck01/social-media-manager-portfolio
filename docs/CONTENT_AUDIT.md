@@ -125,3 +125,6 @@ Same Drive folder. Added to "See it live" (vertical, compressed to 720p):
 - Fashion & lifestyle: traditional attire reel (Mvoice Solution Limited); kaftan styling reel; Ankara dress reel
 
 "MSL" in the videos = Mvoice Solution Limited, her company. Clients were read from logos in the videos; titles are descriptive. To confirm with her: client names for the Sip and Paint and the two fashion reels, and her exact role on each (shot, edited, managed).
+
+## Update 18/10/2026: client's chosen lead videos
+Drive now also holds IMG_0984 (DeNiel Foot & Ankle Center doctor talking to camera), IMG_1097 (AI-generated drama ad in a handbag boutique, Mvoice) and "Document from DesignByUltra" (actually an MP4: handbag styling reel at Taramoda Boutique). Per her voice note these lead the video section in that order: doctor, AI video, bag. The earlier guess (iSenseville / animation / kaftan first) is reverted.
