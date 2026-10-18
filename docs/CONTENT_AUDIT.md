@@ -128,3 +128,6 @@ Same Drive folder. Added to "See it live" (vertical, compressed to 720p):
 
 ## Update 18/10/2026: client's chosen lead videos
 Drive now also holds IMG_0984 (DeNiel Foot & Ankle Center doctor talking to camera), IMG_1097 (AI-generated drama ad in a handbag boutique, Mvoice) and "Document from DesignByUltra" (actually an MP4: handbag styling reel at Taramoda Boutique). Per her voice note these lead the video section in that order: doctor, AI video, bag. The earlier guess (iSenseville / animation / kaftan first) is reverted.
+
+## Voice check 18/10/2026
+Speaker-embedding comparison (resemblyzer) against her on-camera lines at the end of the AI boutique ad. Strong match (0.81–0.93): the brand owner and closing pitch in that ad, now a voice clip (27–48s). Not her: doctor, iSenseville consultant, Utol host, other AI-ad characters. Music only: ten videos. The four original voice clips scored 0.60–0.73 (inconclusive: character voices and music skew the comparison); kept because she supplied them as her Mvoice work. Ask her to confirm.
