@@ -3,8 +3,8 @@
 import { upload } from "@vercel/blob/client";
 import { useCallback, useEffect, useState } from "react";
 
-type Video = { title: string; client: string; category: string; src: string; hls?: string; poster?: string; aspect?: string };
-type Clip = { title: string; style: string; src: string; duration?: string };
+type Video = { title: string; client: string; category: string; src: string; hls?: string; poster?: string; aspect?: string; driveId?: string };
+type Clip = { title: string; style: string; src: string; duration?: string; driveId?: string };
 type Contact = { email: string; booking: string; socials: { label: string; href: string }[] };
 type Tab = "videos" | "voice" | "contact";
 
@@ -128,6 +128,115 @@ function Row({ title, sub, thumb, onUp, onDown, onEdit, onDelete }: {
         <button className={btn} onClick={() => confirm(`Delete "${title}"?`) && onDelete()}>Delete</button>
       </div>
     </li>
+  );
+}
+
+
+type DriveFile = {
+  id: string;
+  name: string;
+  mimeType: string;
+  size?: string;
+  modifiedTime?: string;
+  thumbnailLink?: string;
+  folder?: string;
+  videoMediaMetadata?: { width?: number; height?: number; durationMillis?: string };
+};
+
+const nearestShape = (w: number, h: number) =>
+  SHAPES.reduce((a, s) => (Math.abs(s.r - w / h) < Math.abs(a.r - w / h) ? s : a)).value;
+const prettyName = (n: string) => n.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " ").trim();
+const mb = (b?: string) => (b ? `${Math.round(Number(b) / 1048576)} MB` : "");
+
+// Lists her Google Drive folder; "Add" copies a file to fast storage and opens the form.
+function DrivePanel({ kind, used, onAdd }: { kind: "video" | "audio"; used: Set<string>; onAdd: (f: DriveFile, url: string) => void }) {
+  const [state, setState] = useState<{ files: DriveFile[]; configured: boolean; folderUrl?: string } | null>(null);
+  const [err, setErr] = useState("");
+  const [busy, setBusy] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+
+  const load = useCallback(async () => {
+    setErr("");
+    try {
+      setState(await api("/api/drive"));
+    } catch (e) {
+      setErr((e as Error).message);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (open && !state) load();
+  }, [open, state, load]);
+
+  const files = (state?.files ?? []).filter((f) => f.mimeType.startsWith(kind + "/"));
+
+  return (
+    <div className="mt-4 border border-hair">
+      <button className="flex w-full items-center justify-between px-4 py-3 text-left text-sm" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
+        <span>From Google Drive</span>
+        <span className="text-ink-2">{open ? "Hide" : "Show"}</span>
+      </button>
+      {open && (
+        <div className="border-t border-hair px-4 py-4">
+          {err && <p className="text-sm text-red-400">{err}</p>}
+          {!state && !err && <p className="text-sm text-ink-2">Loading your Drive folder…</p>}
+          {state && !state.configured && <p className="text-sm text-ink-2">Google Drive isn&apos;t connected yet. Ask your developer to add the Google API key.</p>}
+          {state?.configured && (
+            <>
+              <div className="mb-3 flex items-center justify-between gap-4 text-sm text-ink-2">
+                <span>Put new files in your Drive folder, then add them here.</span>
+                <span className="flex shrink-0 gap-3">
+                  <button className="hover:text-ink" onClick={load}>Refresh</button>
+                  <a href={state.folderUrl} target="_blank" rel="noopener noreferrer" className="hover:text-ink">Open folder ↗</a>
+                </span>
+              </div>
+              {files.length === 0 && <p className="text-sm text-ink-2">No {kind} files in the folder yet.</p>}
+              <ul className="divide-y divide-hair">
+                {files.map((f) => {
+                  const added = used.has(f.id);
+                  const mov = /quicktime/.test(f.mimeType) || /\.mov$/i.test(f.name);
+                  return (
+                    <li key={f.id} className="flex items-center gap-3 py-3">
+                      {f.thumbnailLink ? (
+                        <img src={f.thumbnailLink} alt="" referrerPolicy="no-referrer" className="h-12 w-12 shrink-0 bg-wall-2 object-cover" />
+                      ) : (
+                        <span className="h-12 w-12 shrink-0 bg-wall-2" />
+                      )}
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm">{f.name}</p>
+                        <p className="truncate text-xs text-ink-2">
+                          {[f.folder, mb(f.size)].filter(Boolean).join(" · ")}
+                          {mov && <span className="text-gilt"> · iPhone .MOV: export as MP4 if it won&apos;t play on Android</span>}
+                        </p>
+                      </div>
+                      <button
+                        className={added ? btn : gold}
+                        disabled={added || busy !== null}
+                        onClick={async () => {
+                          setBusy(f.id);
+                          setErr("");
+                          try {
+                            const r = await api<{ url: string }>("/api/drive", { method: "POST", body: JSON.stringify({ id: f.id }) });
+                            onAdd(f, r.url);
+                          } catch (e) {
+                            setErr((e as Error).message);
+                          } finally {
+                            setBusy(null);
+                          }
+                        }}
+                      >
+                        {added ? "On the site" : busy === f.id ? "Copying…" : "Add"}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+              {busy && <p className="mt-3 text-xs text-ink-2">Copying from Drive. Big videos can take a minute; keep this page open.</p>}
+            </>
+          )}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -264,19 +373,35 @@ function PublishBar({ dirty, busy, msg, publish }: { dirty: boolean; busy: boole
 function Videos({ on }: { on: boolean }) {
   const f = useFile<{ items: Video[] }>("videos", on);
   const [edit, setEdit] = useState<number | "new" | null>(null);
+  const [draft, setDraft] = useState<Video | null>(null);
   if (!f.data) return <p className="text-ink-2">{f.msg || "Loading…"}</p>;
   const items = f.data.items;
   const cats = [...new Set(items.map((v) => v.category))];
   const save = (v: Video, i: number | "new") => {
     f.change({ items: i === "new" ? [v, ...items] : items.map((o, j) => (j === i ? v : o)) });
     setEdit(null);
+    setDraft(null);
   };
+  const blank: Video = { title: "", client: "", category: "", src: "", aspect: "9 / 16" };
   return (
     <>
       {edit === null ? (
-        <button className={gold} onClick={() => setEdit("new")}>+ Add video</button>
+        <>
+          <button className={gold} onClick={() => setEdit("new")}>+ Upload video</button>
+          <DrivePanel
+            kind="video"
+            used={new Set(items.map((v) => v.driveId).filter(Boolean) as string[])}
+            onAdd={(d, url) => {
+              const m = d.videoMediaMetadata;
+              setDraft({ ...blank, title: prettyName(d.name), src: url, driveId: d.id, aspect: m?.width && m?.height ? nearestShape(m.width, m.height) : "9 / 16" });
+              setEdit("new");
+            }}
+          />
+        </>
       ) : (
-        edit === "new" && <VideoForm init={{ title: "", client: "", category: "", src: "", aspect: "9 / 16" }} cats={cats} onSave={(v) => save(v, "new")} onCancel={() => setEdit(null)} />
+        edit === "new" && (
+          <VideoForm key={draft?.driveId ?? "blank"} init={draft ?? blank} cats={cats} onSave={(v) => save(v, "new")} onCancel={() => { setEdit(null); setDraft(null); }} />
+        )
       )}
       <ul className="mt-6">
         {items.map((v, i) =>
@@ -310,19 +435,34 @@ function Videos({ on }: { on: boolean }) {
 function Voice({ on }: { on: boolean }) {
   const f = useFile<{ items: Clip[] }>("voice", on);
   const [edit, setEdit] = useState<number | "new" | null>(null);
+  const [draft, setDraft] = useState<Clip | null>(null);
   if (!f.data) return <p className="text-ink-2">{f.msg || "Loading…"}</p>;
   const items = f.data.items;
   const styles = [...new Set(items.map((c) => c.style))];
   const save = (c: Clip, i: number | "new") => {
     f.change({ items: i === "new" ? [c, ...items] : items.map((o, j) => (j === i ? c : o)) });
     setEdit(null);
+    setDraft(null);
   };
+  const blank: Clip = { title: "", style: "", src: "" };
   return (
     <>
       {edit === null ? (
-        <button className={gold} onClick={() => setEdit("new")}>+ Add voice clip</button>
+        <>
+          <button className={gold} onClick={() => setEdit("new")}>+ Upload voice clip</button>
+          <DrivePanel
+            kind="audio"
+            used={new Set(items.map((c) => c.driveId).filter(Boolean) as string[])}
+            onAdd={(d, url) => {
+              setDraft({ ...blank, title: prettyName(d.name), src: url, driveId: d.id });
+              setEdit("new");
+            }}
+          />
+        </>
       ) : (
-        edit === "new" && <ClipForm init={{ title: "", style: "", src: "" }} styles={styles} onSave={(c) => save(c, "new")} onCancel={() => setEdit(null)} />
+        edit === "new" && (
+          <ClipForm key={draft?.driveId ?? "blank"} init={draft ?? blank} styles={styles} onSave={(c) => save(c, "new")} onCancel={() => { setEdit(null); setDraft(null); }} />
+        )
       )}
       <ul className="mt-6">
         {items.map((c, i) =>
@@ -378,12 +518,22 @@ export default function Admin() {
   const [pw, setPw] = useState("");
   const [err, setErr] = useState("");
   const [tab, setTab] = useState<Tab>("videos");
+  const [setup, setSetup] = useState<Record<string, boolean> | null>(null);
+
+  const check = useCallback(
+    () =>
+      api<{ loggedIn: boolean; configured: boolean; setup?: Record<string, boolean> }>("/api/login")
+        .then((r) => {
+          setState(!r.configured ? "unset" : r.loggedIn ? "in" : "out");
+          setSetup(r.setup ?? null);
+        })
+        .catch(() => setState("out")),
+    [],
+  );
 
   useEffect(() => {
-    api<{ loggedIn: boolean; configured: boolean }>("/api/login")
-      .then((r) => setState(!r.configured ? "unset" : r.loggedIn ? "in" : "out"))
-      .catch(() => setState("out"));
-  }, []);
+    check();
+  }, [check]);
 
   if (state === "loading") return <main className="min-h-dvh bg-wall" />;
 
@@ -397,7 +547,7 @@ export default function Admin() {
             setErr("");
             try {
               await api("/api/login", { method: "POST", body: JSON.stringify({ password: pw }) });
-              setState("in");
+              await check();
             } catch (x) {
               setErr((x as Error).message);
             }
@@ -438,6 +588,16 @@ export default function Admin() {
         </div>
       </header>
       <div className="mx-auto max-w-4xl px-5 py-10 md:px-10">
+        {setup && Object.values(setup).some((v) => !v) && (
+          <div className="mb-8 border border-gilt-line/60 bg-wall-2 p-4 text-sm">
+            <p className="text-ink">Almost ready. Your developer still needs to connect:</p>
+            <ul className="mt-2 list-inside list-disc text-ink-2">
+              {!setup.github && <li>GitHub (needed to publish changes)</li>}
+              {!setup.blob && <li>Vercel Blob storage (needed for uploads and Drive imports)</li>}
+              {!setup.drive && <li>Google Drive (needed to add files from your Drive folder)</li>}
+            </ul>
+          </div>
+        )}
         <nav className="mb-10 flex gap-6 overflow-x-auto text-sm" role="tablist">
           {tabs.map(([k, l]) => (
             <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)} className={`shrink-0 border-b pb-2 ${tab === k ? "border-gilt-line text-ink" : "border-transparent text-ink-2 hover:text-ink"}`}>

@@ -4,31 +4,36 @@
       "title": "Zendago, radio commercial",
       "style": "Commercial",
       "src": "/media/voice/zendago-commercial.mp3",
-      "duration": "0:40"
+      "duration": "0:40",
+      "driveId": "1-3r0u_9fYOayw8HBkjjYTR-yn7KLBYsw"
     },
     {
       "title": "Mvoice social media ad, brand owner and pitch",
       "style": "Commercial",
       "src": "/media/voice/mvoice-social-ad.mp3",
-      "duration": "0:21"
+      "duration": "0:21",
+      "driveId": "11lRYwzSxYALI4YiA71DYjynl9LEIDBK1"
     },
     {
       "title": "The Ant and the Dove, children's story",
       "style": "Narration",
       "src": "/media/voice/ant-and-dove-story.mp3",
-      "duration": "1:49"
+      "duration": "1:49",
+      "driveId": "1YApLoucI0DU46GEBdBR5gzlNVGB0LVKq"
     },
     {
       "title": "New Year Resolution, audio drama",
       "style": "Narration",
       "src": "/media/voice/new-year-resolution-drama.mp3",
-      "duration": "1:40"
+      "duration": "1:40",
+      "driveId": "19T4dlHTJ24ZkdO2M21Djt6VcQi4J0G_s"
     },
     {
       "title": "Graduation film, Pidgin dub",
       "style": "Dubbing",
       "src": "/media/voice/pidgin-dub.mp3",
-      "duration": "0:43"
+      "duration": "0:43",
+      "driveId": "17byXTjo_P5PUOaq8sfGFdCK_Hkxkvkjn"
     }
   ]
 }
