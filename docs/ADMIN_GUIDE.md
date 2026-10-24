@@ -7,8 +7,9 @@ Project → **Settings → Environment Variables**, add for Production:
 
 | Name | Value |
 |---|---|
-| `ADMIN_PASSWORD` | the password you give her |
-| `ADMIN_SECRET` | any long random string (e.g. run `openssl rand -hex 32`) |
+| `ADMIN_USERNAME` | her login name |
+| `ADMIN_PASSWORD_HASH` | scrypt hash of her password (never the password itself). Make one with `node -e` in `web/lib/admin.ts` comments, or ask Sam |
+| `ADMIN_SECRET` | random string, at least 32 characters (`openssl rand -base64 32`) |
 | `GITHUB_TOKEN` | GitHub → Settings → Developer settings → Fine-grained tokens. Repository: `social-media-manager-portfolio` only. Permission: **Contents: Read and write**. |
 
 Then **Storage → Create → Blob**, connect it to the project. This adds `BLOB_READ_WRITE_TOKEN` automatically. Free tier: 1 GB storage.
@@ -18,7 +19,7 @@ Redeploy once after adding these.
 Also check **Settings → Build & Output**: Output Directory must be the default (not `out`). The site is no longer a static export because the dashboard needs server routes.
 
 ## How it works
-- Login is checked on the server; a signed cookie keeps her logged in for 7 days.
+- Username and password are checked on the server against a scrypt hash; the password is stored nowhere. 5 wrong tries lock that connection out for 15 minutes. A signed, httpOnly, same-site cookie keeps her logged in for 24 hours. Requests from other websites are rejected, and /admin can't be embedded, cached or indexed.
 - Uploads go straight from her browser to Vercel Blob (no size issue up to 500 MB).
 - **Publish changes** commits the updated list (`web/content/*.json`) to `claude/admiring-johnson-0qnmbu` using the server's GitHub token. Vercel redeploys; the site is live in about 2 minutes.
 - Nothing secret is in the page. Repo and branch are set in `web/lib/admin.ts`.

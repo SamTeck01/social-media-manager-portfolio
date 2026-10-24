@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { loggedIn } from "@/lib/admin";
+import { loggedIn, sameOrigin } from "@/lib/admin";
 import { DRIVE_FOLDER, driveConfigured, listMedia } from "@/lib/drive";
 
 export const runtime = "nodejs";
@@ -23,6 +23,7 @@ export async function GET() {
 // Checks a file is in her folder and returns its Drive link. Nothing is copied:
 // the site plays it from Google Drive.
 export async function POST(req: Request) {
+  if (!sameOrigin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   if (!(await loggedIn())) return deny();
   if (!driveConfigured()) return NextResponse.json({ error: "Google Drive isn't connected yet" }, { status: 400 });
   const { id } = (await req.json().catch(() => ({}))) as { id?: string };

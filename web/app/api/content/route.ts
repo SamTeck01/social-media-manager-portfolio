@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { FILES, loggedIn, readFile, writeFile, type FileKey } from "@/lib/admin";
+import { FILES, loggedIn, sameOrigin, readFile, writeFile, type FileKey } from "@/lib/admin";
 
 const isKey = (k: string | null): k is FileKey => !!k && k in FILES;
 const str = (v: unknown) => typeof v === "string";
@@ -34,6 +34,7 @@ export async function GET(req: Request) {
 }
 
 export async function PUT(req: Request) {
+  if (!sameOrigin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   if (!(await loggedIn())) return NextResponse.json({ error: "Not logged in" }, { status: 401 });
   const { file, data, sha } = (await req.json().catch(() => ({}))) as { file?: string; data?: unknown; sha?: string };
   if (!isKey(file ?? null) || !sha) return NextResponse.json({ error: "Bad request" }, { status: 400 });

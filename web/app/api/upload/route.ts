@@ -1,10 +1,11 @@
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { NextResponse } from "next/server";
-import { loggedIn } from "@/lib/admin";
+import { loggedIn, sameOrigin } from "@/lib/admin";
 
 // Files go straight from her browser to Vercel Blob; this route only signs the upload.
 export async function POST(req: Request) {
   const body = (await req.json()) as HandleUploadBody;
+  if (body.type === "blob.generate-client-token" && !sameOrigin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   try {
     const result = await handleUpload({
       body,

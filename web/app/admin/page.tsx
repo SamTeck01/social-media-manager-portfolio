@@ -517,6 +517,7 @@ function ContactTab({ on }: { on: boolean }) {
 
 export default function Admin() {
   const [state, setState] = useState<"loading" | "out" | "in" | "unset">("loading");
+  const [user, setUser] = useState("");
   const [pw, setPw] = useState("");
   const [err, setErr] = useState("");
   const [tab, setTab] = useState<Tab>("videos");
@@ -548,7 +549,8 @@ export default function Admin() {
             e.preventDefault();
             setErr("");
             try {
-              await api("/api/login", { method: "POST", body: JSON.stringify({ password: pw }) });
+              await api("/api/login", { method: "POST", body: JSON.stringify({ username: user, password: pw }) });
+              setPw("");
               await check();
             } catch (x) {
               setErr((x as Error).message);
@@ -559,12 +561,31 @@ export default function Admin() {
             Your <span className="italic text-gold">studio</span>.
           </h1>
           {state === "unset" ? (
-            <p className="mt-6 text-ink-2">The admin isn&apos;t set up yet. Ask your developer to add the password in Vercel.</p>
+            <p className="mt-6 text-ink-2">The admin isn&apos;t set up yet. Ask your developer to add the login details in Vercel.</p>
           ) : (
             <>
-              <input type="password" autoFocus className={`${field} mt-8`} placeholder="Password" value={pw} onChange={(e) => setPw(e.target.value)} />
+              <input
+                autoFocus
+                autoComplete="username"
+                autoCapitalize="none"
+                spellCheck={false}
+                className={`${field} mt-8`}
+                placeholder="Username"
+                aria-label="Username"
+                value={user}
+                onChange={(e) => setUser(e.target.value)}
+              />
+              <input
+                type="password"
+                autoComplete="current-password"
+                className={`${field} mt-3`}
+                placeholder="Password"
+                aria-label="Password"
+                value={pw}
+                onChange={(e) => setPw(e.target.value)}
+              />
               {err && <p className="mt-2 text-sm text-red-400">{err}</p>}
-              <button className={`${gold} mt-4 w-full`} disabled={!pw}>Log in</button>
+              <button className={`${gold} mt-4 w-full`} disabled={!user || !pw}>Log in</button>
             </>
           )}
         </form>

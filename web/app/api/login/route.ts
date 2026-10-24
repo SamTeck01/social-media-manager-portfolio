@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { checkPassword, configured, endSession, loggedIn, startSession } from "@/lib/admin";
+import { checkLogin, clearFails, configured, endSession, loggedIn, lockedOut, recordFail, sameOrigin, startSession } from "@/lib/admin";
 
 export async function GET() {
   const ok = await loggedIn();
@@ -17,17 +17,25 @@ export async function GET() {
   });
 }
 
+const ipOf = (req: Request) => req.headers.get("x-forwarded-for")?.split(",")[0].trim() || "unknown";
+
 export async function POST(req: Request) {
-  const { password } = (await req.json().catch(() => ({}))) as { password?: string };
-  if (!checkPassword(String(password ?? ""))) {
+  if (!sameOrigin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  const ip = ipOf(req);
+  if (lockedOut(ip)) return NextResponse.json({ error: "Too many attempts. Try again in 15 minutes." }, { status: 429 });
+  const { username, password } = (await req.json().catch(() => ({}))) as { username?: string; password?: string };
+  if (!checkLogin(String(username ?? ""), String(password ?? ""))) {
+    recordFail(ip);
     await new Promise((r) => setTimeout(r, 800)); // slow down guessing
-    return NextResponse.json({ error: "Wrong password" }, { status: 401 });
+    return NextResponse.json({ error: "Wrong username or password" }, { status: 401 });
   }
+  clearFails(ip);
   await startSession();
   return NextResponse.json({ ok: true });
 }
 
-export async function DELETE() {
+export async function DELETE(req: Request) {
+  if (!sameOrigin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   await endSession();
   return NextResponse.json({ ok: true });
 }
