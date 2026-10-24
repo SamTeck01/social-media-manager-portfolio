@@ -1,6 +1,7 @@
 "use client";
 
 import { upload } from "@vercel/blob/client";
+import { driveThumb, isDrive } from "@/lib/drive-url";
 import { useCallback, useEffect, useState } from "react";
 
 type Video = { title: string; client: string; category: string; src: string; hls?: string; poster?: string; aspect?: string; driveId?: string };
@@ -194,8 +195,7 @@ function DrivePanel({ kind, used, onAdd }: { kind: "video" | "audio"; used: Set<
               <ul className="divide-y divide-hair">
                 {files.map((f) => {
                   const added = used.has(f.id);
-                  const mov = /quicktime/.test(f.mimeType) || /\.mov$/i.test(f.name);
-                  return (
+                                    return (
                     <li key={f.id} className="flex items-center gap-3 py-3">
                       {f.thumbnailLink ? (
                         <img src={f.thumbnailLink} alt="" referrerPolicy="no-referrer" className="h-12 w-12 shrink-0 bg-wall-2 object-cover" />
@@ -206,7 +206,6 @@ function DrivePanel({ kind, used, onAdd }: { kind: "video" | "audio"; used: Set<
                         <p className="truncate text-sm">{f.name}</p>
                         <p className="truncate text-xs text-ink-2">
                           {[f.folder, mb(f.size)].filter(Boolean).join(" · ")}
-                          {mov && <span className="text-gilt"> · iPhone .MOV: export as MP4 if it won&apos;t play on Android</span>}
                         </p>
                       </div>
                       <button
@@ -225,13 +224,12 @@ function DrivePanel({ kind, used, onAdd }: { kind: "video" | "audio"; used: Set<
                           }
                         }}
                       >
-                        {added ? "On the site" : busy === f.id ? "Copying…" : "Add"}
+                        {added ? "On the site" : busy === f.id ? "Adding…" : "Add"}
                       </button>
                     </li>
                   );
                 })}
               </ul>
-              {busy && <p className="mt-3 text-xs text-ink-2">Copying from Drive. Big videos can take a minute; keep this page open.</p>}
             </>
           )}
         </div>
@@ -393,7 +391,7 @@ function Videos({ on }: { on: boolean }) {
             used={new Set(items.map((v) => v.driveId).filter(Boolean) as string[])}
             onAdd={(d, url) => {
               const m = d.videoMediaMetadata;
-              setDraft({ ...blank, title: prettyName(d.name), src: url, driveId: d.id, aspect: m?.width && m?.height ? nearestShape(m.width, m.height) : "9 / 16" });
+              setDraft({ ...blank, title: prettyName(d.name), src: url, driveId: d.id, poster: driveThumb(d.id), aspect: m?.width && m?.height ? nearestShape(m.width, m.height) : "9 / 16" });
               setEdit("new");
             }}
           />
@@ -416,7 +414,11 @@ function Videos({ on }: { on: boolean }) {
                 v.poster ? (
                   <img src={v.poster} alt="" className="h-14 w-14 shrink-0 object-cover" />
                 ) : (
-                  <video src={`${v.src}#t=0.5`} preload="metadata" muted className="h-14 w-14 shrink-0 object-cover" />
+                  isDrive(v.src) ? (
+                    <span className="h-14 w-14 shrink-0 bg-wall-2" />
+                  ) : (
+                    <video src={`${v.src}#t=0.5`} preload="metadata" muted className="h-14 w-14 shrink-0 object-cover" />
+                  )
                 )
               }
               onUp={i > 0 ? () => f.change({ items: move(items, i, -1) }) : undefined}
@@ -588,12 +590,12 @@ export default function Admin() {
         </div>
       </header>
       <div className="mx-auto max-w-4xl px-5 py-10 md:px-10">
-        {setup && Object.values(setup).some((v) => !v) && (
+        {setup && (!setup.github || !setup.drive) && (
           <div className="mb-8 border border-gilt-line/60 bg-wall-2 p-4 text-sm">
             <p className="text-ink">Almost ready. Your developer still needs to connect:</p>
             <ul className="mt-2 list-inside list-disc text-ink-2">
               {!setup.github && <li>GitHub (needed to publish changes)</li>}
-              {!setup.blob && <li>Vercel Blob storage (needed for uploads and Drive imports)</li>}
+              {!setup.blob && !setup.drive && <li>Vercel Blob storage (only for uploading straight from your phone; Drive files don&apos;t need it)</li>}
               {!setup.drive && <li>Google Drive (needed to add files from your Drive folder)</li>}
             </ul>
           </div>

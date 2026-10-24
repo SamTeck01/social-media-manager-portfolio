@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/Icon";
 import type { VoiceClip } from "@/content/site";
+import { driveAudio, isDrive } from "@/lib/drive-url";
 
 const fmt = (s: number) =>
   Number.isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}` : "0:00";
@@ -97,7 +98,7 @@ export default function VoicePlayer({ clips }: { clips: VoiceClip[] }) {
       )}
       <audio
         ref={audio}
-        src={clip.src}
+        src={isDrive(clip.src) ? driveAudio(clip.src) : clip.src}
         preload="metadata"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}

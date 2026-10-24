@@ -54,14 +54,3 @@ export async function listMedia(): Promise<DriveFile[]> {
   }
   return files.sort((a, b) => (b.modifiedTime ?? "").localeCompare(a.modifiedTime ?? ""));
 }
-
-export async function getMeta(id: string) {
-  const r = await call({ fields: "id,name,mimeType,size,parents" }, `/${encodeURIComponent(id)}`);
-  return (await r.json()) as DriveFile;
-}
-
-export async function openMedia(id: string) {
-  const r = await call({ alt: "media" }, `/${encodeURIComponent(id)}`);
-  if (!r.body) throw new Error("Empty file from Google Drive");
-  return r.body;
-}

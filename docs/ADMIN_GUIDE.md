@@ -35,16 +35,16 @@ Also check **Settings → Build & Output**: Output Directory must be the default
 ## Video streaming
 The 14 videos added by Sam play as adaptive streams (HLS, `web/public/media/hls/`): they start at a light quality and climb to full quality (up to the original 1080p) as the connection allows. Videos she uploads through the dashboard play as a normal MP4 from Vercel Blob; send long ones to Sam to convert into a stream (`hls.sh` in the session notes).
 
-## Google Drive (her upload folder)
-The dashboard reads her shared folder (https://drive.google.com/drive/folders/1Y3nXCbL5Ay4IqqxzuLualofPN5CspMgi) and copies files she picks into Vercel Blob. The site never plays from Drive itself (Drive is slow and limits viewers).
+## Google Drive (her media storage)
+New videos and voice clips live in her shared Drive folder (https://drive.google.com/drive/folders/1Y3nXCbL5Ay4IqqxzuLualofPN5CspMgi) and play from there. Nothing is copied to the website. Videos open in Google Drive's own player inside the site's video window (it converts any format, including iPhone .MOV); covers come from Drive thumbnails; voice clips play the Drive file directly. The 17 videos and 5 clips already on the site stay on their fast streams.
 
 One-time setup:
 1. https://console.cloud.google.com → create a project (any name).
 2. **APIs & Services → Library → Google Drive API → Enable.**
 3. **APIs & Services → Credentials → Create credentials → API key.** Restrict it: API restrictions → Google Drive API only.
-4. In Vercel, add `GOOGLE_API_KEY` = that key (and optionally `DRIVE_FOLDER_ID` to use a different folder). Redeploy.
-5. Keep the folder shared as **Anyone with the link → Viewer**.
+4. In Vercel, add `GOOGLE_API_KEY` = that key (optionally `DRIVE_FOLDER_ID` for a different folder). Redeploy.
+5. Keep the folder (and the files in it) shared as **Anyone with the link → Viewer**. If a file is made private, it stops playing on the site.
 
-How she uses it: drop a video or MP3 into the folder (subfolders are fine) → dashboard → Videos (or Voice clips) → **From Google Drive** → **Add** → fill in client and category → **Done** → **Publish changes**. Files already on the site show "On the site". iPhone .MOV files may not play on Android; export as MP4 first.
+Her steps: drop a video or MP3 into the folder (subfolders fine) → dashboard → Videos or Voice clips → **From Google Drive** → **Add** (title, shape and cover are filled in) → add client and category → **Done** → **Publish changes**. Files already on the site show "On the site".
 
-Limits: a Drive import can take up to 5 minutes (Vercel function limit); files over about 1 GB may time out. Imported videos play as a single MP4, not an adaptive stream; send important long videos to Sam to convert.
+Trade-off: Drive-hosted videos start slower and buffer more on weak connections than the site's own streams, and Drive may pause very popular files for a while. Vercel Blob is now only needed for the "Upload" button (uploading straight from her phone).

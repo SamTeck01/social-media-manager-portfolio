@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Icon from "@/components/Icon";
 import { blur, srcSet } from "@/lib/img";
+import { drivePreview, isDrive } from "@/lib/drive-url";
 import type { Video } from "@/content/site";
 
 type HlsCtor = typeof import("hls.js").default;
@@ -48,6 +49,8 @@ function ReelCard({ v, i, onOpen }: { v: Video; i: number; onOpen: () => void })
             decoding="async"
             className="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
           />
+        ) : isDrive(v.src) ? (
+          <span className="block h-full w-full bg-wall-2" />
         ) : (
           <video src={`${v.src}#t=0.5`} preload="metadata" muted playsInline className="h-full w-full object-cover" />
         )}
@@ -142,6 +145,20 @@ function Stream({ v }: { v: Video }) {
   );
 }
 
+// Videos kept in Google Drive play in Drive's own player.
+function DriveFrame({ v }: { v: Video }) {
+  return (
+    <iframe
+      src={drivePreview(v.src)}
+      title={v.title}
+      allow="autoplay; fullscreen"
+      allowFullScreen
+      className="mx-auto block max-h-[74vh] w-full bg-black"
+      style={{ aspectRatio: v.aspect ?? "9 / 16" }}
+    />
+  );
+}
+
 function Player({ v, onClose }: { v: Video | null; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
 
@@ -179,7 +196,7 @@ function Player({ v, onClose }: { v: Video | null; onClose: () => void }) {
               <Icon name="close" className="h-4 w-4" />
             </button>
           </div>
-          <Stream key={v.src} v={v} />
+          {isDrive(v.src) ? <DriveFrame key={v.src} v={v} /> : <Stream key={v.src} v={v} />}
         </div>
       )}
     </dialog>
