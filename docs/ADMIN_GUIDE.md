@@ -33,11 +33,8 @@ Also check **Settings → Build & Output**: Output Directory must be the default
 - **Contact details**: email, booking link, social links.
 - Only add numbers she can prove.
 
-## Video streaming
-The 14 videos added by Sam play as adaptive streams (HLS, `web/public/media/hls/`): they start at a light quality and climb to full quality (up to the original 1080p) as the connection allows. Videos she uploads through the dashboard play as a normal MP4 from Vercel Blob; send long ones to Sam to convert into a stream (`hls.sh` in the session notes).
-
 ## Google Drive (her media storage)
-New videos and voice clips live in her shared Drive folder (https://drive.google.com/drive/folders/1Y3nXCbL5Ay4IqqxzuLualofPN5CspMgi) and play from there. Nothing is copied to the website. Videos open in Google Drive's own player inside the site's video window (it converts any format, including iPhone .MOV); covers come from Drive thumbnails; voice clips play the Drive file directly. The 17 videos and 5 clips already on the site stay on their fast streams.
+New videos and voice clips live in her shared Drive folder (https://drive.google.com/drive/folders/1Y3nXCbL5Ay4IqqxzuLualofPN5CspMgi) and play from there. Nothing is copied to the website. Videos open in Google Drive's own player inside the site's video window (it converts any format, including iPhone .MOV); covers come from Drive thumbnails; voice clips play the Drive file directly. All videos play from Drive (moved there on 29/10/2026 because 860 MB of media in every Vercel deployment pushed deployment storage to ~13 GB). Covers and voice clips stay on the site; they total under 7 MB.
 
 One-time setup:
 1. https://console.cloud.google.com → create a project (any name).
