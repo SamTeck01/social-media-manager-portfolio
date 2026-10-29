@@ -1,0 +1,8 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "main": false,
+      "claude/admiring-johnson-0qnmbu": false
+    }
+  }
+}
